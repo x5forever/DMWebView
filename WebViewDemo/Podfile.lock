@@ -1,0 +1,19 @@
+PODS:
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
+  - WebViewJavascriptBridge (5.0.5)
+
+DEPENDENCIES:
+  - NJKWebViewProgress
+  - WebViewJavascriptBridge (~> 5.0.5)
+
+SPEC CHECKSUMS:
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  WebViewJavascriptBridge: a4d502315f1b8d9a51cd6a9174147ed567ec3bc5
+
+PODFILE CHECKSUM: f65bddec126979b781b485a61529e6d1c08363fc
+
+COCOAPODS: 1.0.1

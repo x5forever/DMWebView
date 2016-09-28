@@ -1,0 +1,10 @@
+
+platform :ios, '7.0'
+
+target 'WebViewDemo’ do
+
+pod 'WebViewJavascriptBridge','~>5.0.5'
+pod 'NJKWebViewProgress'
+
+end
+
