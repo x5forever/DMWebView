@@ -176,11 +176,31 @@
         if(navigationAction.targetFrame == nil) {
             [webView loadRequest:navigationAction.request];
         }
+        
+        /*** 以下代码为支持appStore或者拨号 ***/
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([navigationAction.request.URL.scheme isEqualToString:@"tel"]) {
+            if ([app canOpenURL:navigationAction.request.URL]) {
+                [app openURL:navigationAction.request.URL];
+                decisionHandler(WKNavigationActionPolicyCancel);
+                return;
+            }
+        }
+        if ([navigationAction.request.URL.absoluteString containsString:@"itunes.apple.com"]) {
+            if ([app canOpenURL:navigationAction.request.URL]) {
+                [app openURL:navigationAction.request.URL];
+                decisionHandler(WKNavigationActionPolicyCancel);
+                return;
+            }
+        }
+       /*** the end ***/
+
         decisionHandler(WKNavigationActionPolicyAllow);
     }else {
         decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
+
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self callback_webViewDidStartLoad];
 }
@@ -221,7 +241,14 @@
     }])];
     [(UIViewController *)_delegate presentViewController:alertController animated:YES completion:nil];
 }
-
+// 支持window.open()
+-(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
+    }
+    return nil;
+}
 #pragma mark- callback DMWebView Delegate
 - (void)callback_webViewDidFinishLoad { if(_delegateFlags.didFinishLoad) [self.delegate webViewDidFinishLoad:self];}
 - (void)callback_webViewDidStartLoad { if(_delegateFlags.didStartLoad) [self.delegate webViewDidStartLoad:self];}

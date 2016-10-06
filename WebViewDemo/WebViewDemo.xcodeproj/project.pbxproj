@@ -15,8 +15,8 @@
 		545C0AAB1D9B669200E81A67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545C0AA91D9B669200E81A67 /* LaunchScreen.storyboard */; };
 		545C0AB61D9B669200E81A67 /* WebViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C0AB51D9B669200E81A67 /* WebViewDemoTests.m */; };
 		545C0AC11D9B669200E81A67 /* WebViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C0AC01D9B669200E81A67 /* WebViewDemoUITests.m */; };
-		545C0AD11D9B6D0400E81A67 /* DMWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C0AD01D9B6D0400E81A67 /* DMWebView.m */; };
 		545C0AD31D9B6DB300E81A67 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545C0AD21D9B6DB300E81A67 /* WebKit.framework */; };
+		545DFF631DA5DE670024A2ED /* DMWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545DFF621DA5DE670024A2ED /* DMWebView.m */; };
 		86D48BBF43F3CC3A20E441A8 /* libPods-WebViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987AE7DA9F7DFFE3B31A8296 /* libPods-WebViewDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +55,8 @@
 		545C0AC01D9B669200E81A67 /* WebViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewDemoUITests.m; sourceTree = "<group>"; };
 		545C0AC21D9B669200E81A67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545C0ACF1D9B6D0400E81A67 /* DMWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMWebView.h; sourceTree = "<group>"; };
-		545C0AD01D9B6D0400E81A67 /* DMWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMWebView.m; sourceTree = "<group>"; };
 		545C0AD21D9B6DB300E81A67 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		545DFF621DA5DE670024A2ED /* DMWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMWebView.m; sourceTree = "<group>"; };
 		669ECFEC17FC93CA8F78704E /* Pods-WebViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewDemo/Pods-WebViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		987AE7DA9F7DFFE3B31A8296 /* libPods-WebViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8514638367FF2CE798BA5C2 /* Pods-WebViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewDemo/Pods-WebViewDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				545C0ACF1D9B6D0400E81A67 /* DMWebView.h */,
-				545C0AD01D9B6D0400E81A67 /* DMWebView.m */,
+				545DFF621DA5DE670024A2ED /* DMWebView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -368,7 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				545C0AD11D9B6D0400E81A67 /* DMWebView.m in Sources */,
+				545DFF631DA5DE670024A2ED /* DMWebView.m in Sources */,
 				545C0AA31D9B669200E81A67 /* ViewController.m in Sources */,
 				545C0AA01D9B669200E81A67 /* AppDelegate.m in Sources */,
 				545C0A9D1D9B669200E81A67 /* main.m in Sources */,
