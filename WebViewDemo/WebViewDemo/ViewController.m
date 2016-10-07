@@ -17,11 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DMWebView *webView = [[DMWebView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    [self.view addSubview:webView];
     
+    DMWebView *webView = [[DMWebView alloc] initWithFrame:self.view.bounds];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
     [webView loadRequest:request];
+    [self.view addSubview:webView];
 }
 
 
