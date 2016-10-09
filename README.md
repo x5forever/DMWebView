@@ -15,7 +15,8 @@ pod 'DMWebView'
 UIWebView replaced by DMWebView
 ```
 
-## Notes: #####DMWebView填过WKWebView的N多坑，如下：
+## Notes:
+#####DMWebView填过WKWebView的N多坑，如下：
 1. WKWebView不支持scale的设置
 2. html不弹alert
 3. AppStore以及tel的跳转，openURL
