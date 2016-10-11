@@ -5,7 +5,7 @@
 * UIWebView seamless switching to WKWebView
 * support interaction between Oc and JS by using WebViewJavascriptBridge
 
-## Add to the project
+## Add to the Podfile
 ```objc 
 pod 'DMWebView' 
 ```
