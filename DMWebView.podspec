@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.source       = { :git => "https://github.com/x5forever/DMWebView.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/x5forever/DMWebView.git", :tag => 'v'+s.version.to_s }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
