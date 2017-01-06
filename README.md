@@ -25,7 +25,7 @@ UIWebView replaced by DMWebView
 
 ## Update
 #### tag 0.0.2
-1. 解决WebViewJavascriptBridge '5.0.8' https 请求bug,更新到'6.0.0'：
+1. 解决WebViewJavascriptBridge '5.0.8' https 请求bug,(目前6.0.0 无法与原生OC交互)更新到'5.1'：
 ``
 pod 'WebViewJavascriptBridge','~>6.0.0’
 ``
