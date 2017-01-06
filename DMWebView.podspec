@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "DMWebView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "DMWebView support UIWebView and WKWebView."
   s.description  = <<-DESC
     DMWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.
