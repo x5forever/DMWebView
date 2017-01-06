@@ -3,12 +3,7 @@ WebViewJavascriptBridge
 
 [![Build Status](https://travis-ci.org/marcuswestin/WebViewJavascriptBridge.svg)](https://travis-ci.org/marcuswestin/WebViewJavascriptBridge)
 
-An iOS/OSX bridge for sending messages between Obj-C and JavaScript in WKWebViews, UIWebViews & WebViews.
-
-Migration Guide
----------------
-
-When upgrading from v5.0.x to 6.0.x you will have to update the `setupWebViewJavascriptBridge` javascript snippet. See https://github.com/marcuswestin/WebViewJavascriptBridge#usage part 4).
+An iOS/OSX bridge for sending messages between Obj-C and JavaScript in UIWebViews/WebViews.
 
 Who uses WebViewJavascriptBridge?
 ---------------------------------
@@ -28,7 +23,6 @@ WebViewJavascriptBridge is used by a range of companies and projects. This is a 
 - [FRIL](https://fril.jp)
 - [留白·WHITE](http://liubaiapp.com)
 - [BrowZine](http://thirdiron.com/browzine/)
-- ... & many more!
 
 Installation (iOS & OSX)
 ------------------------
@@ -68,7 +62,7 @@ Usage
 @property WebViewJavascriptBridge* bridge;
 ```
 
-2) Instantiate WebViewJavascriptBridge with a WKWebView, UIWebView (iOS) or WebView (OSX):
+2) Instantiate WebViewJavascriptBridge with a UIWebView (iOS) or WebView (OSX):
 
 ```objc
 self.bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
@@ -95,7 +89,7 @@ function setupWebViewJavascriptBridge(callback) {
 	window.WVJBCallbacks = [callback];
 	var WVJBIframe = document.createElement('iframe');
 	WVJBIframe.style.display = 'none';
-	WVJBIframe.src = 'https://__bridge_loaded__';
+	WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
 	document.documentElement.appendChild(WVJBIframe);
 	setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
@@ -116,6 +110,25 @@ setupWebViewJavascriptBridge(function(bridge) {
 		console.log("JS received response:", responseData)
 	})
 })
+```
+
+WKWebView Support (iOS 8+ & OS 10.10+)
+--------------------------------------
+
+(WARNING: WKWebView still has [bugs and missing network APIs.](https://github.com/ShingoFukuyama/WKWebViewTips/blob/master/README.md) It may not be a simple drop-in replacement).
+
+WebViewJavascriptBridge supports [WKWebView](http://nshipster.com/wkwebkit/) for iOS 8 and OSX Yosemite. In order to use WKWebView you need to instantiate the `WKWebViewJavascriptBridge`. The rest of the `WKWebViewJavascriptBridge` API is the same as `WebViewJavascriptBridge`.
+
+1) Import the header file:
+
+```objc
+#import "WKWebViewJavascriptBridge.h"
+```
+
+2) Instantiate WKWebViewJavascriptBridge and with a WKWebView object
+
+```objc
+WKWebViewJavascriptBridge* bridge = [WKWebViewJavascriptBridge bridgeForWebView:webView];
 ```
 
 Automatic reference counting (ARC)
@@ -142,7 +155,7 @@ API Reference
 
 ### ObjC API
 
-##### `[WebViewJavascriptBridge bridgeForWebView:(WKWebVIew/UIWebView/WebView*)webview`
+##### `[WebViewJavascriptBridge bridgeForWebView:(UIWebView/WebView*)webview`
 
 Create a javascript bridge for the given web view.
 
@@ -182,9 +195,9 @@ Example:
 }];
 ```
 
-#### `[bridge setWebViewDelegate:(id)webViewDelegate]`
+#### `[bridge setWebViewDelegate:(NSObject<UIWebViewDelegate> *)webViewDelegate]`
 
-Optionally, set a `WKNavigationDelegate/UIWebViewDelegate` if you need to respond to the [web view's lifecycle events](https://developer.apple.com/reference/uikit/uiwebviewdelegate).
+Optionally, set a `UIWebViewDelegate` if you need to respond to the [web view's lifecycle events](http://developer.apple.com/library/ios/documentation/uikit/reference/UIWebViewDelegate_Protocol/Reference/Reference.html).
 
 ##### `[bridge disableJavscriptAlertBoxSafetyTimeout]`
 

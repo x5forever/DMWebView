@@ -3,7 +3,7 @@ platform :ios, '7.0'
 
 target 'WebViewDemo’ do
 
-pod 'WebViewJavascriptBridge','~>6.0.0’
+pod 'WebViewJavascriptBridge','~>5.1’
 pod 'NJKWebViewProgress'
 
 end

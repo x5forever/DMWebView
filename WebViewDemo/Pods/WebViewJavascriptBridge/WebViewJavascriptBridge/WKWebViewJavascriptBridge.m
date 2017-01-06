@@ -8,7 +8,7 @@
 
 #import "WKWebViewJavascriptBridge.h"
 
-#if defined supportsWKWebView
+#if defined(supportsWKWebKit)
 
 @implementation WKWebViewJavascriptBridge {
     __weak WKWebView* _webView;
@@ -96,7 +96,8 @@
     }];
 }
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
     if (webView != _webView) { return; }
     
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
@@ -106,7 +107,8 @@
 }
 
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
+{
     if (webView != _webView) { return; }
 
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
@@ -118,7 +120,8 @@
     }
 }
 
-- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
+{
     if (webView != _webView) { return; }
 
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
@@ -129,12 +132,14 @@
     }
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView
+decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if (webView != _webView) { return; }
     NSURL *url = navigationAction.request.URL;
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
 
-    if ([_base isWebViewJavascriptBridgeURL:url]) {
+    if ([_base isCorrectProcotocolScheme:url]) {
         if ([_base isBridgeLoadedURL:url]) {
             [_base injectJavascriptFile];
         } else if ([_base isQueueMessageURL:url]) {
@@ -162,7 +167,9 @@
 }
 
 
-- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+- (void)webView:(WKWebView *)webView
+didFailNavigation:(WKNavigation *)navigation
+      withError:(NSError *)error {
     if (webView != _webView) { return; }
     
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
@@ -180,7 +187,8 @@
     }
 }
 
-- (NSString*) _evaluateJavascript:(NSString*)javascriptCommand {
+- (NSString*) _evaluateJavascript:(NSString*)javascriptCommand
+{
     [_webView evaluateJavaScript:javascriptCommand completionHandler:nil];
     return NULL;
 }

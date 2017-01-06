@@ -57,7 +57,7 @@ Pod::Spec.new do |s|
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.requires_arc = true
 
-  s.dependency "WebViewJavascriptBridge", "~>6.0.0"
+  s.dependency "WebViewJavascriptBridge", "~>5.1"
   s.dependency "NJKWebViewProgress"
 
 end
