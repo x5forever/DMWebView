@@ -25,14 +25,14 @@ UIWebView replaced by DMWebView
 
 ## Update
 ####V0.0.4
-1. WebViewJavascriptBridge 6.0.0 已解决无法与原生OC交互问题，更新到6.0.2：
+1. WebViewJavascriptBridge 6.0.0 已解决无法与原生OC交互问题，故更新到'6.0.2'：
 ``
-pod 'WebViewJavascriptBridge','~>5.1’
+pod 'WebViewJavascriptBridge','~>6.0.2'
 ``
 
 ####V0.0.3
 1. 解决WebViewJavascriptBridge '5.0.8' https 请求bug,(目前6.0.0 无法与原生OC交互)更新到'5.1'：
 ``
-pod 'WebViewJavascriptBridge','~>5.1’
+pod 'WebViewJavascriptBridge','~>5.1'
 ``
   
