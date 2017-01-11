@@ -8,24 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		0159914645363D6E854BCEA14BB2DE8D /* WebViewJavascriptBridge-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDEDA999414008375653BF9AC462AC /* WebViewJavascriptBridge-dummy.m */; };
-		30610B744D4C01450A3844D41DBC7E32 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
+		30610B744D4C01450A3844D41DBC7E32 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81607F20092CACC1394D3DCB7D6993B0 /* Foundation.framework */; };
 		327F7F9500BA3DFBFC21577708D06D83 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E621DCFEF671594AC26FBE53F7B8C4 /* NJKWebViewProgress.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		38DA9D4D2C73378AB559DE9E52B17235 /* NJKWebViewProgress-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FFC425A3C8D6D87020DAF7D02FD11C /* NJKWebViewProgress-dummy.m */; };
 		3D0C9866673952E7853B03EFCAC8CD1F /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 09EC5A3724FC912912FD808637ED7A7C /* WebViewJavascriptBridgeBase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		4555765FD8034B4B9AA0B7356074D523 /* NJKWebViewProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = A5600397D4872ECE24828F0D83DBBD4B /* NJKWebViewProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EDEA320391B8AB0997DCD8EEF70E242 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
+		4EDEA320391B8AB0997DCD8EEF70E242 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81607F20092CACC1394D3DCB7D6993B0 /* Foundation.framework */; };
 		54161C068646BF555FB064662C590EC5 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B4776EE90EB398C8D048749C8ED658FD /* WebViewJavascriptBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		73E039F3E9C1F21B4BD66B9FFE2F6E86 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = E85BAE842D4B851726A4533FE6FB1BDC /* WebViewJavascriptBridge_JS.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		92DAB1D1FA893767B76C35E5F405756E /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CDAB0697B44F280A90CCED04BB256B /* NJKWebViewProgressView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A851D7F0EEB3FF5E586AA7F5AB02044E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */; };
+		94CE8CB1D5E3E4D7A206A370BD888617 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5147AE3C7F8B063B02257EFF0EFD800 /* UIKit.framework */; };
 		AF2FD805B6263EFF719965711AFC1E08 /* WebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6B2D2077008B4F1F738A875C2F45B6 /* WebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C56F64FB823587FECBD5A5A7C2F378A6 /* Pods-WebViewDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BE2070CBB2286795DA5075C97C4130 /* Pods-WebViewDemo-dummy.m */; };
 		C88690F7CB8C22DEB9068050E18FF641 /* WKWebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 26FD13900F585A81F7E5973277362FD7 /* WKWebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEBBF7F10C2AF362BA9C83912C749483 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8415439972EFA0DE91B40E74B9B1D6 /* WKWebViewJavascriptBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D4F9BB49E97145DF3CEED87613DFF898 /* WebViewJavascriptBridge_JS.h in Headers */ = {isa = PBXBuildFile; fileRef = 995243B08A19C75A382D0174E28ABBE5 /* WebViewJavascriptBridge_JS.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D56068A23970EE67A49B1E6718D6455B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAF4F70740F05FA34D54F1982E18E7A /* WebKit.framework */; };
 		D811F8F07549A8D374EACF0A44B48C98 /* WebViewJavascriptBridgeBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C687BC9B604745B79FABB98A29D2542 /* WebViewJavascriptBridgeBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF8F6F4B1D5553CAF5BE74037840F757 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
 		E194F1D6DCE1FC68A556F5AB5F4AE605 /* NJKWebViewProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = E6F28C7FA32108B4C9B35331B8E2BD2C /* NJKWebViewProgress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F397862FEE89093E1E42C48768D23787 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81607F20092CACC1394D3DCB7D6993B0 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0C687BC9B604745B79FABB98A29D2542 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridgeBase.h; path = WebViewJavascriptBridge/WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
 		1E24676BE34489FFBF5A52A8988CAFB1 /* Pods-WebViewDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WebViewDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1E6B2D2077008B4F1F738A875C2F45B6 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridge.h; path = WebViewJavascriptBridge/WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		1FAF4F70740F05FA34D54F1982E18E7A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		26FD13900F585A81F7E5973277362FD7 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WKWebViewJavascriptBridge.h; path = WebViewJavascriptBridge/WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		29B359DC5A840AC7919BAF35EEC861D2 /* NJKWebViewProgress.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NJKWebViewProgress.xcconfig; sourceTree = "<group>"; };
 		2AEDEDA999414008375653BF9AC462AC /* WebViewJavascriptBridge-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebViewJavascriptBridge-dummy.m"; sourceTree = "<group>"; };
@@ -62,9 +64,8 @@
 		5358CFA3807F60B7430847BD15AEF30D /* libPods-WebViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-WebViewDemo.a"; path = "libPods-WebViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5621085CEA3A5A47FA718B46F90597C2 /* Pods-WebViewDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebViewDemo-resources.sh"; sourceTree = "<group>"; };
 		5E5DC8F54D5A28E7D065B72CA1235DC9 /* libNJKWebViewProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libNJKWebViewProgress.a; path = libNJKWebViewProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7591E2C66DFD73627BBA5663A570D77E /* NJKWebViewProgress-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NJKWebViewProgress-prefix.pch"; sourceTree = "<group>"; };
-		7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		81607F20092CACC1394D3DCB7D6993B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		8F3F992DA10E299F17CE3540F1EEE2E5 /* Pods-WebViewDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebViewDemo-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		995243B08A19C75A382D0174E28ABBE5 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridge_JS.h; path = WebViewJavascriptBridge/WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		E5CDAB0697B44F280A90CCED04BB256B /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NJKWebViewProgressView.m; path = NJKWebViewProgress/NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		E6F28C7FA32108B4C9B35331B8E2BD2C /* NJKWebViewProgress.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NJKWebViewProgress.h; path = NJKWebViewProgress/NJKWebViewProgress.h; sourceTree = "<group>"; };
 		E85BAE842D4B851726A4533FE6FB1BDC /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridge_JS.m; path = WebViewJavascriptBridge/WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		F5147AE3C7F8B063B02257EFF0EFD800 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,20 +90,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2CC5EE3B00E06C250C25A2E1B852AE74 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DF8F6F4B1D5553CAF5BE74037840F757 /* Foundation.framework in Frameworks */,
-				A851D7F0EEB3FF5E586AA7F5AB02044E /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4A76CA11E96C772E437382F0287BB290 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				30610B744D4C01450A3844D41DBC7E32 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		986131472FD1582FD65991236F4B6339 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F397862FEE89093E1E42C48768D23787 /* Foundation.framework in Frameworks */,
+				94CE8CB1D5E3E4D7A206A370BD888617 /* UIKit.framework in Frameworks */,
+				D56068A23970EE67A49B1E6718D6455B /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +129,14 @@
 			);
 			name = NJKWebViewProgress;
 			path = NJKWebViewProgress;
+			sourceTree = "<group>";
+		};
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FFDF343B465C42F26242933972F7F1D /* iOS */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		1754585812F144D801FB16F3233C68FD /* Support Files */ = {
@@ -171,14 +182,6 @@
 			path = "Target Support Files/Pods-WebViewDemo";
 			sourceTree = "<group>";
 		};
-		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E6EE98446B568159EE277B68FD442AF0 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		570429615DBDD4C5807B3CE55DF9E2BD /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,11 +193,21 @@
 			path = "../Target Support Files/NJKWebViewProgress";
 			sourceTree = "<group>";
 		};
+		6FFDF343B465C42F26242933972F7F1D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				81607F20092CACC1394D3DCB7D6993B0 /* Foundation.framework */,
+				F5147AE3C7F8B063B02257EFF0EFD800 /* UIKit.framework */,
+				1FAF4F70740F05FA34D54F1982E18E7A /* WebKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
 				08419E241D818BBCCA39B21CC5DB9BA5 /* Pods */,
 				802579ECE1472E784059AACDC40A26D9 /* Products */,
 				20518D3FAB198F419EA2DEA6A051A37F /* Targets Support Files */,
@@ -226,15 +239,6 @@
 			);
 			name = WebViewJavascriptBridge;
 			path = WebViewJavascriptBridge;
-			sourceTree = "<group>";
-		};
-		E6EE98446B568159EE277B68FD442AF0 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */,
-				7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		FFA3D24924883D082CDAA9B6BA6F150A /* Core */ = {
@@ -312,7 +316,7 @@
 			buildConfigurationList = 9157839CA0A0579B9DE9B3332B185097 /* Build configuration list for PBXNativeTarget "WebViewJavascriptBridge" */;
 			buildPhases = (
 				0B643CACF9E659E5C0A7D9E1B29507A4 /* Sources */,
-				2CC5EE3B00E06C250C25A2E1B852AE74 /* Frameworks */,
+				986131472FD1582FD65991236F4B6339 /* Frameworks */,
 				04783ED385BE95EF094606F29BC028D0 /* Headers */,
 			);
 			buildRules = (

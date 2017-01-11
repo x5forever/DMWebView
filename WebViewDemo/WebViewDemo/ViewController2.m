@@ -29,9 +29,8 @@ static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
     [self.view addSubview:webView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(CGRectGetMidX(self.view.frame)-40, CGRectGetMidY(self.view.frame)-25, 80, 50);
-    [btn setTitle:@"ocCallJS" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    btn.frame = CGRectMake(CGRectGetMidX(self.view.frame)-50, CGRectGetMidY(self.view.frame)-25, 100, 50);
+    [btn setTitle:@"oc_call_js" forState:UIControlStateNormal];
     btn.backgroundColor = [UIColor lightGrayColor];
     [btn addTarget:self action:@selector(callJS) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
