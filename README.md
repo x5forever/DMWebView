@@ -1,5 +1,5 @@
 ## DMWebView
-* DMWebView support UIWebView and WKWebView. Meanwhile,it can use WebViewJavascriptBridge directly.
+* DMWebView support UIWebView & WKWebView, also integrating with WebViewJavascriptBridge
 
 ## Function
 * UIWebView seamless switching to WKWebView
