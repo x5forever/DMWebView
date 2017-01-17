@@ -63,19 +63,7 @@
     }
     
     //set scalesPageToFit == YES
-    _scalesPageToFit = YES;
-    if (_usingUIWebView) {
-        UIWebView *webView = _realWebView;
-        webView.scalesPageToFit = _scalesPageToFit;
-    }else {
-        NSString *jScript = @"var meta = document.createElement('meta'); \
-        meta.name = 'viewport'; \
-        meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'; \
-        var head = document.getElementsByTagName('head')[0];\
-        head.appendChild(meta);";
-        WKWebView *webView = _realWebView;
-        [webView evaluateJavaScript:jScript completionHandler:nil];
-    }
+    self.scalesPageToFit = YES;
     
     [self.realWebView setFrame:self.bounds];
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -145,6 +133,23 @@
     }
     _realWebView = webView;
 }
+- (void)setScalesPageToFit:(BOOL)scalesPageToFit {
+    _scalesPageToFit = scalesPageToFit;
+    if (_usingUIWebView) {
+        UIWebView *webView = _realWebView;
+        webView.scalesPageToFit = _scalesPageToFit;
+    }else {
+        if (scalesPageToFit) {
+            NSString *jScript = @"var meta = document.createElement('meta'); \
+            meta.name = 'viewport'; \
+            meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'; \
+            var head = document.getElementsByTagName('head')[0];\
+            head.appendChild(meta);";
+            WKWebView *webView = _realWebView;
+            [webView evaluateJavaScript:jScript completionHandler:nil];
+        }
+    }
+}
 
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -167,40 +172,44 @@
 - (void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {
     self.estimatedProgress = progress;
 }
-
+#pragma mark - 基础方法
+// 判断当前加载的url是否是WKWebView不能打开的协议类型
+- (BOOL)isLoadingWKWebViewDisableScheme:(NSURL*)url
+{
+    BOOL retValue = NO;
+    // 判断是否正在加载WKWebview不能识别的协议类型：phone numbers, email address, maps, etc.
+    if ([url.scheme isEqualToString:@"tel"]) {
+        UIApplication* app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+            retValue = YES;
+        }
+    }
+    if ([url.absoluteString containsString:@"itunes.apple.com"]) {
+        UIApplication* app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+            retValue = YES;
+        }
+    }
+    
+    return retValue;
+}
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     BOOL resultBOOL = [self callback_webViewShouldStartLoadWithRequest:navigationAction.request navigationType:navigationAction.navigationType];
-    if(resultBOOL){
+    BOOL isLoadingDisableScheme = [self isLoadingWKWebViewDisableScheme:navigationAction.request.URL];
+    
+    if(resultBOOL && !isLoadingDisableScheme){
         self.currentRequest = navigationAction.request;
         if(navigationAction.targetFrame == nil) {
             [webView loadRequest:navigationAction.request];
         }
-        
-        /*** 以下代码为支持appStore或者拨号 ***/
-        UIApplication *app = [UIApplication sharedApplication];
-        if ([navigationAction.request.URL.scheme isEqualToString:@"tel"]) {
-            if ([app canOpenURL:navigationAction.request.URL]) {
-                [app openURL:navigationAction.request.URL];
-                decisionHandler(WKNavigationActionPolicyCancel);
-                return;
-            }
-        }
-        if ([navigationAction.request.URL.absoluteString containsString:@"itunes.apple.com"]) {
-            if ([app canOpenURL:navigationAction.request.URL]) {
-                [app openURL:navigationAction.request.URL];
-                decisionHandler(WKNavigationActionPolicyCancel);
-                return;
-            }
-        }
-       /*** the end ***/
-
         decisionHandler(WKNavigationActionPolicyAllow);
     }else {
         decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
-
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self callback_webViewDidStartLoad];
 }
