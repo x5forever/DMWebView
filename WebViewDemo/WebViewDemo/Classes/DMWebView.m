@@ -324,7 +324,6 @@
 - (BOOL)canGoForward {
     return [self.realWebView canGoForward];
 }
-
 - (id)goBack {
     if (_usingUIWebView) {
         [(UIWebView*)self.realWebView goBack];
