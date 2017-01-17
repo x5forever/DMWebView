@@ -67,6 +67,7 @@
     
     [self.realWebView setFrame:self.bounds];
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [self.realWebView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     [self addSubview:self.realWebView];
     
     if (_usingUIWebView) {
@@ -118,6 +119,9 @@
         self.estimatedProgress = [change[NSKeyValueChangeNewKey] doubleValue];
     }else if([keyPath isEqualToString:@"title"]) {
         self.title = change[NSKeyValueChangeNewKey];
+    }else {
+        [self willChangeValueForKey:keyPath];
+        [self didChangeValueForKey:keyPath];
     }
 }
 
@@ -482,12 +486,11 @@
         WKWebView* webView = _realWebView;
         webView.UIDelegate = nil;
         webView.navigationDelegate = nil;
-        
         [webView removeObserver:self forKeyPath:@"estimatedProgress"];
         [webView removeObserver:self forKeyPath:@"title"];
     }
     [_realWebView scrollView].delegate = nil;
-    [_realWebView stopLoading];
+    [_realWebView removeObserver:self forKeyPath:@"loading"];
     [(UIWebView*)_realWebView loadHTMLString:@"" baseURL:nil];
     [_realWebView stopLoading];
     [_realWebView removeFromSuperview];
