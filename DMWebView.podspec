@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.version      = "0.1.0"
   s.summary      = "DMWebView support UIWebView & WKWebView, also integrating with WebViewJavascriptBridge"
   s.description  = <<-DESC
-    DMWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.
+    DMWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.同时还集成了WebViewJavascriptBridge，在DMWebViewDelegate协议中能实现js与oc的交互。
     DESC
   s.homepage     = "https://github.com/x5forever/DMWebView.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
