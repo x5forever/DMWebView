@@ -141,7 +141,7 @@
     _scalesPageToFit = scalesPageToFit;
     if (_usingUIWebView) {
         UIWebView *webView = _realWebView;
-        webView.scalesPageToFit = _scalesPageToFit;
+        webView.scalesPageToFit = scalesPageToFit;
     }else {
         if (scalesPageToFit) {
             NSString *jScript = @"var meta = document.createElement('meta'); \
