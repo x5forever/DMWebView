@@ -24,6 +24,16 @@ UIWebView replaced by DMWebView
 5. [[NSURLCache sharedURLCache] removeAllCachedResponses]; WKWebView清缓存不起作用了哦。(解决方案N多，不一一列举了。譬如缓存策略采用：NSURLRequestReloadIgnoringLocalCacheData)
 
 ## Update
+####V0.1.1
+1. 解决 iOS 8.0 - iOS 8.2 白屏问题 
+
+```objc
+if(wkWebView && self.usingUIWebView == NO && [[[UIDevice currentDevice] systemVersion] floatValue] > 8.2) {
+        [self initWKWebView];
+        _usingUIWebView = NO;
+    }
+
+```
 ####V0.0.4
 1. WebViewJavascriptBridge 6.0.0 已解决无法与原生OC交互问题，故更新到'6.0.2'：
 
