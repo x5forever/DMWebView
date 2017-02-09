@@ -53,7 +53,7 @@
 }
 - (void)_initMyself {
     Class wkWebView = NSClassFromString(@"WKWebView");
-    if(wkWebView && self.usingUIWebView == NO) {
+    if(wkWebView && self.usingUIWebView == NO && [[[UIDevice currentDevice] systemVersion] floatValue] > 8.2) { /* iOS 8.0 - iOS 8.2 白屏问题 */
         [self initWKWebView];
         _usingUIWebView = NO;
     }
