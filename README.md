@@ -16,7 +16,7 @@ UIWebView replaced by DMWebView
 ```
 
 ## Notes:
-#####DMWebView填过WKWebView的N多坑，如下：
+##### DMWebView填过WKWebView的N多坑，如下：
 1. WKWebView不支持scale的设置
 2. html不弹alert
 3. AppStore以及tel的跳转，openURL
@@ -24,7 +24,7 @@ UIWebView replaced by DMWebView
 5. [[NSURLCache sharedURLCache] removeAllCachedResponses]; WKWebView清缓存不起作用了哦。(解决方案N多，不一一列举了。譬如缓存策略采用：NSURLRequestReloadIgnoringLocalCacheData)
 
 ## Update
-####V0.1.1
+#### V0.1.1
 1. 解决 iOS 8.0 - iOS 8.2 白屏问题 
 
 ```objc
@@ -34,14 +34,14 @@ if(wkWebView && self.usingUIWebView == NO && [[[UIDevice currentDevice] systemVe
     }
 
 ```
-####V0.0.4
+#### V0.0.4
 1. WebViewJavascriptBridge 6.0.0 已解决无法与原生OC交互问题，故更新到'6.0.2'：
 
 ``
 pod 'WebViewJavascriptBridge','~>6.0.2'
 ``
 
-####V0.0.3
+#### V0.0.3
 1. 解决WebViewJavascriptBridge '5.0.8' https 请求bug,(目前6.0.0 无法与原生OC交互)更新到'5.1'：
 
 ``
