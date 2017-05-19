@@ -237,6 +237,10 @@
 - (void)webView: (WKWebView *)webView didFailNavigation:(WKNavigation *) navigation withError: (NSError *) error {
     [self callback_webViewDidFailLoadWithError:error];
 }
+// 解决白屏问题
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView  {
+    [webView reload];
+}
 #pragma mark- WKUIDelegate
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message?:@"" preferredStyle:UIAlertControllerStyleAlert];
