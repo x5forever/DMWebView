@@ -196,7 +196,18 @@
             retValue = YES;
         }
     }
-    
+    if ([url.absoluteString hasSuffix:@"://"]) {
+        UIApplication* app = [UIApplication sharedApplication];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) { // iOS9添加Scheme白名单，没有添加到白名单 canOpenURL 返回NO
+            retValue = [app openURL:url];
+        }else {
+            if ([app canOpenURL:url]) {
+                [app openURL:url];
+                retValue = YES;
+            }
+        }
+        
+    }
     return retValue;
 }
 #pragma mark - WKNavigationDelegate
