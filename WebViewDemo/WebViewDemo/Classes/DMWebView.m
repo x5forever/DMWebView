@@ -182,7 +182,7 @@
 {
     BOOL retValue = NO;
     // 判断是否正在加载WKWebview不能识别的协议类型：phone numbers, email address, maps, etc.
-    if ([url.scheme isEqualToString:@"tel"]) {
+    if ([url.scheme isEqualToString:@"tel"] || [url.scheme isEqualToString:@"sms"] || [url.scheme isEqualToString:@"mailto"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
