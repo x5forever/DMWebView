@@ -7,7 +7,7 @@
 
 ## Add to the Podfile
 ```objc 
-pod 'DMWebView','~>0.1.1'
+pod 'DMWebView','~>0.1.2'
 ```
 
 ## How to use DMWebView
