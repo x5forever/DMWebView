@@ -4,16 +4,21 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
-  - WebViewJavascriptBridge (6.0.2)
+  - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
   - NJKWebViewProgress
-  - WebViewJavascriptBridge (~> 6.0.2)
+  - WebViewJavascriptBridge (~> 6.0.3)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - NJKWebViewProgress
+    - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
-  WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 3d5afdb0c22bf5717ad6d90a3f62ea1f3bc12ab9
+PODFILE CHECKSUM: 75908a32c2a0b32c0cf2ee8d585c513d9fe408f4
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.7.0.beta.3

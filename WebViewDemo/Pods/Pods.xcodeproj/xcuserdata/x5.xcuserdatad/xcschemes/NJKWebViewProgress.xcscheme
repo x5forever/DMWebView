@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CCB7CB485E21C0801790635C83376BA2'
-               BlueprintName = 'NJKWebViewProgress'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libNJKWebViewProgress.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D19967FC808FC0CC82E22D1A114BD3F6"
+               BuildableName = "libNJKWebViewProgress.a"
+               BlueprintName = "NJKWebViewProgress"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

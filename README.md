@@ -24,6 +24,16 @@ UIWebView replaced by DMWebView
 5. [[NSURLCache sharedURLCache] removeAllCachedResponses]; WKWebView清缓存不起作用了哦。(解决方案N多，不一一列举了。譬如缓存策略采用：NSURLRequestReloadIgnoringLocalCacheData)
 
 ## Update
+#### V1.0.0
+
+1. 修复无法下载企业包的bug
+
+2. WebViewJavascriptBridge 升级到 6.0.3
+``
+pod 'WebViewJavascriptBridge','~>6.0.3'
+``
+
+
 #### V0.1.1
 1. 解决 iOS 8.0 - iOS 8.2 白屏问题 
 

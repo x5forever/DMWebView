@@ -189,6 +189,15 @@
             retValue = YES;
         }
     }
+    // 下载企业包
+    if ([url.absoluteString containsString:@"itms-services://"]) {
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+            retValue = YES;
+        }
+    }
+    // 跳转到 App Store
     if ([url.absoluteString containsString:@"itunes.apple.com"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
@@ -196,6 +205,7 @@
             retValue = YES;
         }
     }
+    // Scheme 跳转
     if ([url.absoluteString hasSuffix:@"://"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) { // iOS9添加Scheme白名单，没有添加到白名单 canOpenURL 返回NO

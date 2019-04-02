@@ -174,8 +174,6 @@
 				545C0A941D9B669200E81A67 /* Sources */,
 				545C0A951D9B669200E81A67 /* Frameworks */,
 				545C0A961D9B669200E81A67 /* Resources */,
-				CCEA5D38CCAEE547B2E18D8C /* [CP] Embed Pods Frameworks */,
-				5393F499C6E5AEF9968536AD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,8 +231,8 @@
 				TargetAttributes = {
 					545C0A971D9B669200E81A67 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 3AHZ82SGX3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 753YBDJ3PF;
+						ProvisioningStyle = Manual;
 					};
 					545C0AB01D9B669200E81A67 = {
 						CreatedOnToolsVersion = 8.0;
@@ -299,49 +297,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5393F499C6E5AEF9968536AD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebViewDemo/Pods-WebViewDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		72CF81F2EE8540E6003A0604 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WebViewDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CCEA5D38CCAEE547B2E18D8C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebViewDemo/Pods-WebViewDemo-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -506,12 +477,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 753YBDJ3PF;
 				INFOPLIST_FILE = WebViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.WebViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DMWebView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = rongyihelpDev;
 			};
 			name = Debug;
 		};
@@ -521,12 +494,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WebViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.WebViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DMWebView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
