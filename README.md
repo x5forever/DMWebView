@@ -26,6 +26,12 @@ UIWebView replaced by DMWebView
 ## Update
 #### V1.0.0
 
+1. 解决 2.5.2  itms-services://
+
+
+
+#### V1.0.0
+
 1. 修复无法下载企业包的bug
 
 2. WebViewJavascriptBridge 升级到 6.0.3

@@ -190,7 +190,7 @@
         }
     }
     // 下载企业包
-    if ([url.absoluteString containsString:@"itms-services://"]) {
+    if ([url.absoluteString containsString:@"ms-services://"]) { //解决2.5.2
         UIApplication *app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
