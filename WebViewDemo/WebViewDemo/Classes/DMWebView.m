@@ -198,7 +198,7 @@
         }
     }
     // 跳转到 App Store
-    if ([url.absoluteString containsString:@"itunes.apple.com"]) {
+    if ([url.absoluteString containsString:@"apps.apple.com"] || [url.absoluteString containsString:@"itunes.apple.com"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
