@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "DMWebView.h"
+#import "SVWebView.h"
 
 @interface ViewController ()
 
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    DMWebView *webView = [[DMWebView alloc] initWithFrame:self.view.bounds];
+    SVWebView *webView = [[SVWebView alloc] initWithFrame:self.view.bounds];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
     [webView loadRequest:request];
     [self.view addSubview:webView];

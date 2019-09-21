@@ -1,41 +1,40 @@
 //
-//  DMWebView.h
-//  DMWebViewDemo
+//  SVWebView.h
+//  SVWebViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  对 IMY 进行修改，以满足自己项目需求。
-//  V1.0.2
+//
+//  V2.0.0 不再兼容UIWebView update on 2019/9/21.
 
 
-#import <UIKit/UIKit.h>
+
 #import <WebKit/WKScriptMessageHandler.h>
 #import "WKWebViewJavascriptBridge.h"
 #import "WebViewJavascriptBridge.h"
 
-@class DMWebView;
-@protocol DMWebViewDelegate <NSObject>
+@class SVWebView;
+@protocol SVWebViewDelegate <NSObject>
 @optional
 
-- (void)webViewDidStartLoad:(DMWebView *)webView;
-- (void)webViewDidFinishLoad:(DMWebView *)webView;
-- (void)webView:(DMWebView *)webView didFailLoadWithError:(NSError *)error;
-- (BOOL)webView:(DMWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-- (void)webView:(DMWebView *)webView jsBridge:(id)bridge;
+- (void)webViewDidStartLoad:(SVWebView *)webView;
+- (void)webViewDidFinishLoad:(SVWebView *)webView;
+- (void)webView:(SVWebView *)webView didFailLoadWithError:(NSError *)error;
+- (BOOL)webView:(SVWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+- (void)webView:(SVWebView *)webView jsBridge:(id)bridge;
 @end
 
 // 无缝切换UIWebView  会根据系统版本自动选择 使用WKWebView 还是 UIWebView
-@interface DMWebView : UIView
+@interface SVWebView : UIView
 
-// 使用UIWebView
-- (instancetype)initWithFrame:(CGRect)frame usingUIWebView:(BOOL)usingUIWebView;
+- (instancetype)initWithFrame:(CGRect)frame;
 
-@property(weak,nonatomic)id<DMWebViewDelegate> delegate;
+@property(weak,nonatomic)id<SVWebViewDelegate> delegate;
 
 // 内部使用的webView
-@property (nonatomic, readonly) id realWebView;
-// 是否正在使用 UIWebView
-@property (nonatomic, readonly) BOOL usingUIWebView;
+@property (nonatomic, readonly) WKWebView *realWebView;
+
 // 预估网页加载进度
 @property (nonatomic, readonly) double estimatedProgress;
 
@@ -68,10 +67,10 @@
 @property (nonatomic, readonly) BOOL canGoBack;
 @property (nonatomic, readonly) BOOL canGoForward;
 
-- (id)goBack;
-- (id)goForward;
-- (id)reload;
-- (id)reloadFromOrigin;
+- (WKNavigation *)goBack;
+- (WKNavigation *)goForward;
+- (WKNavigation *)reload;
+- (WKNavigation *)reloadFromOrigin;
 - (void)stopLoading;
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^)(id, NSError *))completionHandler;

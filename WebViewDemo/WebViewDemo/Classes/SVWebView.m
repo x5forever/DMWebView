@@ -1,24 +1,22 @@
 
 //
-//  DMWebView.m
-//  DMWebViewDemo
+//  SVWebView.m
+//  SVWebViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //
 
-#import "DMWebView.h"
-
+#import "SVWebView.h"
 #import "NJKWebViewProgress.h"
-#import <WebKit/WebKit.h>
 
 //#if iOS8 以上 （本想在编译期判断iOS系统，宏定义一个bridge，如下。可是一直没有找到能在编译期判断iOS系统的宏处理，目前能解决的方式：id bridge. 从此我便深深地爱上了id指针 —— by x5）
-//#define DMWEBVIEWJSBRIDGE_TYPE WKWebViewJavascriptBridge
+//#define SVWebViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
 //#else
-//#define DMWEBVIEWJSBRIDGE_TYPE WebViewJavascriptBridge
+//#define SVWebViewJSBRIDGE_TYPE WebViewJavascriptBridge
 //#endif
 
-@interface DMWebView ()<UIWebViewDelegate,WKNavigationDelegate,WKUIDelegate,NJKWebViewProgressDelegate> {
+@interface SVWebView ()<WKNavigationDelegate,WKUIDelegate,NJKWebViewProgressDelegate> {
     struct {
         unsigned int didStartLoad           : 1;
         unsigned int didFinishLoad          : 1;
@@ -35,60 +33,29 @@
 @property (nonatomic, strong) id bridge;
 @end
 
-@implementation DMWebView
-
-@synthesize usingUIWebView = _usingUIWebView;
+@implementation SVWebView
 @synthesize realWebView = _realWebView;
 @synthesize scalesPageToFit = _scalesPageToFit;
-
-- (instancetype)init { return [self initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64)];}
 - (instancetype)initWithCoder:(NSCoder *)coder { if (self = [super initWithCoder:coder]) [self _initMyself]; return self;}
-- (instancetype)initWithFrame:(CGRect)frame { return [self initWithFrame:frame usingUIWebView:NO];}
-- (instancetype)initWithFrame:(CGRect)frame usingUIWebView:(BOOL)usingUIWebView {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _usingUIWebView = usingUIWebView;
         [self _initMyself];
     }
     return self;
 }
 - (void)_initMyself {
-    Class wkWebView = NSClassFromString(@"WKWebView");
-    if(wkWebView && self.usingUIWebView == NO && [[[UIDevice currentDevice] systemVersion] floatValue] > 8.2) { /* iOS 8.0 - iOS 8.2 白屏问题 */
-        [self initWKWebView];
-        _usingUIWebView = NO;
-    }
-    else {
-        [self initUIWebView];
-        _usingUIWebView = YES;
-    }
-    
-    //set scalesPageToFit == YES
+    [self initWKWebView];
     self.scalesPageToFit = YES;
-    
     [self.realWebView setFrame:self.bounds];
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self.realWebView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     [self addSubview:self.realWebView];
-    
-    if (_usingUIWebView) {
-        // WebViewJavascriptBridge
-        [WebViewJavascriptBridge enableLogging];
-        self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.realWebView];
-        [self.bridge setWebViewDelegate:self];
-        // WebViewProgress
-        self.njkWebViewProgress = [[NJKWebViewProgress alloc] init];
-        [self.bridge setWebViewDelegate:_njkWebViewProgress];
-        _njkWebViewProgress.webViewProxyDelegate = self;
-        _njkWebViewProgress.progressDelegate = self;
-    }else {
-        // WKWebViewJavascriptBridge
-        [WKWebViewJavascriptBridge enableLogging];
-        self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.realWebView];
-        [self.bridge setWebViewDelegate:self];
-    }
+    [WKWebViewJavascriptBridge enableLogging];
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.realWebView];
+    [self.bridge setWebViewDelegate:self];
     
 }
-- (void)setDelegate:(id<DMWebViewDelegate>)delegate {
+- (void)setDelegate:(id<SVWebViewDelegate>)delegate {
     _delegate = delegate;
     _delegateFlags.didStartLoad = [_delegate respondsToSelector:@selector(webViewDidStartLoad:)];
     _delegateFlags.didFinishLoad = [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)];
@@ -125,54 +92,19 @@
     }
 }
 
-- (void)initUIWebView {
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:self.bounds];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque = NO;
-    for (UIView *subview in [webView.scrollView subviews]){
-        if ([subview isKindOfClass:[UIImageView class]]){
-            ((UIImageView *) subview).image = nil;
-            subview.backgroundColor = [UIColor clearColor];
-        }
-    }
-    _realWebView = webView;
-}
 - (void)setScalesPageToFit:(BOOL)scalesPageToFit {
     _scalesPageToFit = scalesPageToFit;
-    if (_usingUIWebView) {
-        UIWebView *webView = _realWebView;
-        webView.scalesPageToFit = scalesPageToFit;
-    }else {
-        if (scalesPageToFit) {
-            NSString *jScript = @"var meta = document.createElement('meta'); \
-            meta.name = 'viewport'; \
-            meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'; \
-            var head = document.getElementsByTagName('head')[0];\
-            head.appendChild(meta);";
-            WKWebView *webView = _realWebView;
-            [webView evaluateJavaScript:jScript completionHandler:nil];
-        }
+    if (scalesPageToFit) {
+        NSString *jScript = @"var meta = document.createElement('meta'); \
+        meta.name = 'viewport'; \
+        meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'; \
+        var head = document.getElementsByTagName('head')[0];\
+        head.appendChild(meta);";
+        WKWebView *webView = _realWebView;
+        [webView evaluateJavaScript:jScript completionHandler:nil];
     }
 }
 
-#pragma mark - UIWebViewDelegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if(self.originRequest == nil){
-        self.originRequest = webView.request;
-    }
-    [self callback_webViewDidFinishLoad];
-}
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self callback_webViewDidStartLoad];
-}
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self callback_webViewDidFailLoadWithError:error];
-}
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    BOOL resultBOOL = [self callback_webViewShouldStartLoadWithRequest:request navigationType:navigationType];
-    return resultBOOL;
-}
 - (void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {
     self.estimatedProgress = progress;
 }
@@ -198,7 +130,7 @@
         }
     }
     // 跳转到 App Store
-    if ([url.absoluteString containsString:@"apps.apple.com"] || [url.absoluteString containsString:@"itunes.apple.com"]) {
+    if ([url.absoluteString containsString:@"itunes.apple.com"] || [url.absoluteString containsString:@"apps.apple.com"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
@@ -287,7 +219,7 @@
     }
     return nil;
 }
-#pragma mark- callback DMWebView Delegate
+#pragma mark- callback SVWebView Delegate
 - (void)callback_webViewDidFinishLoad { if(_delegateFlags.didFinishLoad) [self.delegate webViewDidFinishLoad:self];}
 - (void)callback_webViewDidStartLoad { if(_delegateFlags.didStartLoad) [self.delegate webViewDidStartLoad:self];}
 - (void)callback_webViewDidFailLoadWithError:(NSError *)error { if(_delegateFlags.didFailLoad) [self.delegate webView:self didFailLoadWithError:error];}
@@ -310,35 +242,16 @@
 - (id)loadRequest:(NSURLRequest *)request {
     self.originRequest = request;
     self.currentRequest = request;
-    
-    if(_usingUIWebView) {
-        [(UIWebView*)self.realWebView loadRequest:request];
-        return nil;
-    }else{
-        return [(WKWebView*)self.realWebView loadRequest:request];
-    }
+    return [(WKWebView*)self.realWebView loadRequest:request];
 }
 - (id)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL {
-    if(_usingUIWebView) {
-        [(UIWebView*)self.realWebView loadHTMLString:string baseURL:baseURL];
-        return nil;
-    }else{
-        return [(WKWebView*)self.realWebView loadHTMLString:string baseURL:baseURL];
-    }
+    return [(WKWebView*)self.realWebView loadHTMLString:string baseURL:baseURL];
 }
 - (NSURLRequest *)currentRequest {
-    if(_usingUIWebView){
-        return [(UIWebView*)self.realWebView request];;
-    }else{
-        return _currentRequest;
-    }
+    return _currentRequest;
 }
 - (NSURL *)URL {
-    if(_usingUIWebView){
-        return [(UIWebView*)self.realWebView request].URL;;
-    }else{
-        return [(WKWebView*)self.realWebView URL];
-    }
+    return [(WKWebView*)self.realWebView URL];
 }
 - (BOOL)isLoading {
     return [self.realWebView isLoading];
@@ -349,73 +262,37 @@
 - (BOOL)canGoForward {
     return [self.realWebView canGoForward];
 }
-- (id)goBack {
-    if (_usingUIWebView) {
-        [(UIWebView*)self.realWebView goBack];
-        return nil;
-    } else {
-        return [(WKWebView*)self.realWebView goBack];
-    }
+- (WKNavigation *)goBack {
+    return [(WKWebView*)self.realWebView goBack];
 }
-- (id)goForward {
-    if (_usingUIWebView) {
-        [(UIWebView*)self.realWebView goForward];
-        return nil;
-    } else {
-        return [(WKWebView*)self.realWebView goForward];
-    }
+- (WKNavigation *)goForward {
+    return [(WKWebView*)self.realWebView goForward];
 }
-- (id)reload {
-    if(_usingUIWebView) {
-        [(UIWebView*)self.realWebView reload];
-        return nil;
-    } else {
-        return [(WKWebView*)self.realWebView reload];
-    }
+- (WKNavigation *)reload {
+    return [(WKWebView*)self.realWebView reload];
 }
-- (id)reloadFromOrigin {
-    if(_usingUIWebView) {
-        if(self.originRequest) {
-            [self evaluateJavaScript:[NSString stringWithFormat:@"window.location.replace('%@')",self.originRequest.URL.absoluteString] completionHandler:nil];
-        }
-        return nil;
-    } else {
-        return [(WKWebView*)self.realWebView reloadFromOrigin];
-    }
+- (WKNavigation *)reloadFromOrigin {
+    return [(WKWebView*)self.realWebView reloadFromOrigin];
 }
 - (void)stopLoading {
     [self.realWebView stopLoading];
 }
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^)(id, NSError *))completionHandler {
-    if(_usingUIWebView) {
-        NSString* result = [(UIWebView*)self.realWebView stringByEvaluatingJavaScriptFromString:javaScriptString];
-        if(completionHandler)
-        {
-            completionHandler(result,nil);
-        }
-    }
-    else {
-        return [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
-    }
+    return [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
 }
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javaScriptString {
-    if(_usingUIWebView) {
-        NSString* result = [(UIWebView*)self.realWebView stringByEvaluatingJavaScriptFromString:javaScriptString];
-        return result;
-    } else {
-        __block NSString* result = nil;
-        __block BOOL isExecuted = NO;
-        [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:^(id obj, NSError *error) {
-            result = obj;
-            isExecuted = YES;
-        }];
-        
-        while (isExecuted == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        return result;
+    __block NSString* result = nil;
+    __block BOOL isExecuted = NO;
+    [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:^(id obj, NSError *error) {
+        result = obj;
+        isExecuted = YES;
+    }];
+    
+    while (isExecuted == NO) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
+    return result;
 }
 /**
  *  添加js回调oc通知方式，适用于 iOS8 之后
@@ -436,38 +313,19 @@
 }
 
 - (NSInteger)countOfHistory {
-    if(_usingUIWebView) {
-        UIWebView* webView = self.realWebView;
-        
-        int count = [[webView stringByEvaluatingJavaScriptFromString:@"window.history.length"] intValue];
-        if (count){
-            return count;
-        } else {
-            return 1;
-        }
-        
-    } else {
-        WKWebView* webView = self.realWebView;
-        return webView.backForwardList.backList.count;
-    }
+    return _realWebView.backForwardList.backList.count;
 }
 - (void)gobackWithStep:(NSInteger)step {
     if(self.canGoBack == NO)
         return;
-    
     if(step > 0) {
         NSInteger historyCount = self.countOfHistory;
         if(step >= historyCount) {
             step = historyCount - 1;
         }
-        if(_usingUIWebView) {
-            UIWebView* webView = self.realWebView;
-            [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.history.go(-%ld)", (long) step]];
-        } else {
-            WKWebView* webView = self.realWebView;
-            WKBackForwardListItem* backItem = webView.backForwardList.backList[step];
-            [webView goToBackForwardListItem:backItem];
-        }
+        WKWebView* webView = self.realWebView;
+        WKBackForwardListItem* backItem = webView.backForwardList.backList[step];
+        [webView goToBackForwardListItem:backItem];
     } else {
         [self goBack];
     }
@@ -503,16 +361,11 @@
 }
 #pragma mark - dealloc
 - (void)dealloc {
-    if(_usingUIWebView) {
-        UIWebView* webView = _realWebView;
-        webView.delegate = nil;
-    } else {
-        WKWebView* webView = _realWebView;
-        webView.UIDelegate = nil;
-        webView.navigationDelegate = nil;
-        [webView removeObserver:self forKeyPath:@"estimatedProgress"];
-        [webView removeObserver:self forKeyPath:@"title"];
-    }
+    WKWebView* webView = _realWebView;
+    webView.UIDelegate = nil;
+    webView.navigationDelegate = nil;
+    [webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [webView removeObserver:self forKeyPath:@"title"];
     [_realWebView scrollView].delegate = nil;
     [_realWebView removeObserver:self forKeyPath:@"loading"];
     [(UIWebView*)_realWebView loadHTMLString:@"" baseURL:nil];
