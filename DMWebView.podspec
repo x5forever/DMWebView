@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint DMWebView.podspec' to ensure this is a
+#  Be sure to run `pod spec lint SVWebView.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -9,11 +9,12 @@
 Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.name         = "DMWebView"
-  s.version      = "1.0.2"
-  s.summary      = "DMWebView support UIWebView & WKWebView, also integrating with WebViewJavascriptBridge"
+  s.name         = "SVWebView"
+  s.version      = "2.0.0"
+  s.summary      = "SVWebView support UIWebView & WKWebView, also integrating with WebViewJavascriptBridge"
   s.description  = <<-DESC
-    DMWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.同时还集成了WebViewJavascriptBridge，在DMWebViewDelegate协议中能实现js与oc的交互。
+    2.0.0版本将不再兼容UIWebView
+    SVWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.同时还集成了WebViewJavascriptBridge，在SVWebViewDelegate协议中能实现js与oc的交互。
     DESC
   s.homepage     = "https://github.com/x5forever/DMWebView.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -29,7 +30,7 @@ Pod::Spec.new do |s|
 
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -48,7 +49,6 @@ Pod::Spec.new do |s|
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.frameworks = "UIKit", "WebKit"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
