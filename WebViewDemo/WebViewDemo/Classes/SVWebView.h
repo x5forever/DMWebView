@@ -5,8 +5,8 @@
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  对 IMY 进行修改，以满足自己项目需求。
-//
-//  V2.0.0 不再兼容UIWebView update on 2019/9/21.
+//  
+//  V2.0.1 不再兼容UIWebView update on 2019/10/13.
 
 
 

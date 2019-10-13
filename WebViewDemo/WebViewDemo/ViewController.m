@@ -19,7 +19,7 @@
     [super viewDidLoad];
     
     SVWebView *webView = [[SVWebView alloc] initWithFrame:self.view.bounds];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@""]];
     [webView loadRequest:request];
     [self.view addSubview:webView];
     

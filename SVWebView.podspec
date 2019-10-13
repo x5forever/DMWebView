@@ -10,11 +10,11 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SVWebView"
-  s.version      = "2.0.0"
-  s.summary      = "SVWebView support UIWebView & WKWebView, also integrating with WebViewJavascriptBridge"
+  s.version      = "2.0.1"
+  s.summary      = "SVWebView is package of WKWebView, and integrating with WebViewJavascriptBridge"
   s.description  = <<-DESC
-    2.0.0版本将不再兼容UIWebView
-    SVWebView无缝桥接UIWebView和WKWebView，iOS7及以下用UIWebView,iOS8及以上默认用WKWebView,并提供了相关的API.同时还集成了WebViewJavascriptBridge，在SVWebViewDelegate协议中能实现js与oc的交互。
+    2.0.0版本之后将不再兼容UIWebView，系统兼容iOS8.0+版本。
+    SVWebView是WKWebView的封装，同时还集成了WebViewJavascriptBridge，在SVWebViewDelegate协议中能实现js与oc的交互。
     DESC
   s.homepage     = "https://github.com/x5forever/DMWebView.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"

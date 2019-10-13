@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSURLRequest *currentRequest;
 @property (nonatomic, strong) NJKWebViewProgress *njkWebViewProgress;
 @property (nonatomic, strong) id bridge;
+@property (nonatomic, assign) BOOL isBlank; //v2.0.1判断_blank
 @end
 
 @implementation SVWebView
@@ -45,6 +46,7 @@
 }
 - (void)_initMyself {
     [self initWKWebView];
+    self.isBlank = NO;
     self.scalesPageToFit = YES;
     [self.realWebView setFrame:self.bounds];
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -65,11 +67,13 @@
     [self registerNativeBridge:self.bridge];
 }
 - (void)initWKWebView {
-    WKWebViewConfiguration* configuration = [[NSClassFromString(@"WKWebViewConfiguration") alloc] init];
-    configuration.preferences = [NSClassFromString(@"WKPreferences") new];
-    configuration.userContentController = [NSClassFromString(@"WKUserContentController") new];
+    WKPreferences *preferences = [WKPreferences new];
+    preferences.javaScriptCanOpenWindowsAutomatically = YES;
+    WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.preferences = preferences;
+    configuration.userContentController = [WKUserContentController new];
     
-    WKWebView* webView = [[NSClassFromString(@"WKWebView") alloc] initWithFrame:self.bounds configuration:configuration];
+    WKWebView* webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
     webView.UIDelegate = self;
     webView.navigationDelegate = self;
     
@@ -129,8 +133,8 @@
             retValue = YES;
         }
     }
-    // 跳转到 App Store
-    if ([url.absoluteString containsString:@"itunes.apple.com"] || [url.absoluteString containsString:@"apps.apple.com"]) {
+    // 跳转到 AppStore
+    if ([url.absoluteString containsString:@"apps.apple.com"] || [url.absoluteString containsString:@"itunes.apple.com"]) {
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
@@ -149,6 +153,15 @@
             }
         }
         
+    }
+    // _blank
+    if (_isBlank){
+        UIApplication* app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+            retValue = YES;
+            _isBlank = NO;
+        }
     }
     return retValue;
 }
@@ -214,8 +227,8 @@
 // 支持window.open()
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
-    if (!navigationAction.targetFrame.isMainFrame) {
-        [webView loadRequest:navigationAction.request];
+    if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
+        _isBlank = YES;
     }
     return nil;
 }
