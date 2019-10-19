@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SVWebView"
-  s.version      = "2.0.2"
+  s.version      = "2.1.0"
   s.summary      = "SVWebView is package of WKWebView, and integrating with WebViewJavascriptBridge"
   s.description  = <<-DESC
     2.0.0版本之后将不再兼容UIWebView，系统兼容iOS8.0+版本。
