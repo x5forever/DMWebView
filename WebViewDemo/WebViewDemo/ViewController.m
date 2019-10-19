@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     SVWebView *webView = [[SVWebView alloc] initWithFrame:self.view.bounds];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@""]];
     [webView loadRequest:request];

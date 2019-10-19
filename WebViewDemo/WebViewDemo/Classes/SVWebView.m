@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NJKWebViewProgress *njkWebViewProgress;
 @property (nonatomic, strong) id bridge;
 @property (nonatomic, assign) BOOL isBlank; //v2.0.1判断_blank
+@property (nonatomic, assign) CGPoint keyBoardPoint; //v2.0.2键盘问题
 @end
 
 @implementation SVWebView
@@ -48,6 +49,9 @@
     [self initWKWebView];
     self.isBlank = NO;
     self.scalesPageToFit = YES;
+    // 监听键盘
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     [self.realWebView setFrame:self.bounds];
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self.realWebView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
@@ -56,6 +60,13 @@
     self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.realWebView];
     [self.bridge setWebViewDelegate:self];
     
+}
+- (void)keyBoardShow {
+    CGPoint point = self.realWebView.scrollView.contentOffset;
+    self.keyBoardPoint = point;
+}
+- (void)keyBoardHidden {
+    self.realWebView.scrollView.contentOffset = self.keyBoardPoint;
 }
 - (void)setDelegate:(id<SVWebViewDelegate>)delegate {
     _delegate = delegate;
@@ -156,11 +167,11 @@
     }
     // _blank
     if (_isBlank){
+        _isBlank = NO;
         UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
             retValue = YES;
-            _isBlank = NO;
         }
     }
     return retValue;
@@ -228,7 +239,11 @@
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
     if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
-        _isBlank = YES;
+        if ([navigationAction.request.URL.absoluteString hasSuffix:@"_blank"]) {
+            _isBlank = YES;
+        }else {
+            [webView loadRequest:navigationAction.request];
+        }
     }
     return nil;
 }
@@ -385,6 +400,8 @@
     [_realWebView stopLoading];
     [_realWebView removeFromSuperview];
     _realWebView = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:UIKeyboardWillHideNotification object:nil];
 }
 #pragma mark - registerNativeBridge
 - (void)registerNativeBridge:(id )webBridge {
