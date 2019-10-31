@@ -4,10 +4,8 @@
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
-//  对 IMY 进行修改，以满足自己项目需求。
 //  
-//  V2.0.1 不再兼容UIWebView update on 2019/10/13.
-
+//  V2.1.0
 
 
 #import <WebKit/WKScriptMessageHandler.h>
@@ -25,7 +23,6 @@
 - (void)webView:(SVWebView *)webView jsBridge:(id)bridge;
 @end
 
-// 无缝切换UIWebView  会根据系统版本自动选择 使用WKWebView 还是 UIWebView
 @interface SVWebView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
@@ -33,7 +30,7 @@
 @property(weak,nonatomic)id<SVWebViewDelegate> delegate;
 
 // 内部使用的webView
-@property (nonatomic, readonly) WKWebView *realWebView;
+@property (nonatomic, readonly) WKWebView *webView;
 
 // 预估网页加载进度
 @property (nonatomic, readonly) double estimatedProgress;
@@ -75,7 +72,7 @@
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^)(id, NSError *))completionHandler;
 // 不建议使用这个办法  因为会在内部等待webView 的执行结果
-- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javaScriptString __deprecated_msg("Method deprecated. Use [evaluateJavaScript:completionHandler:]");
+- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javaScriptString __deprecated_msg("Please use 'evaluateJavaScript:completionHandler:' instead");
 // 是否根据视图大小来缩放页面 (by x5：该功能特意设为只读模式，不再提供给外部使用，且统一设为YES)
 @property (nonatomic, readonly) BOOL scalesPageToFit;
 

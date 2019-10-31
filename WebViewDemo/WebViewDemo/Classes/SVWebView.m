@@ -36,38 +36,42 @@
 @end
 
 @implementation SVWebView
-@synthesize realWebView = _realWebView;
+
+@synthesize webView = _webView;
 @synthesize scalesPageToFit = _scalesPageToFit;
-- (instancetype)initWithCoder:(NSCoder *)coder { if (self = [super initWithCoder:coder]) [self _initMyself]; return self;}
+
+- (instancetype)initWithCoder:(NSCoder *)coder { if (self = [super initWithCoder:coder]) [self sv_initSelf]; return self;}
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self _initMyself];
+        [self sv_initSelf];
     }
     return self;
 }
-- (void)_initMyself {
+#pragma mark - 监听处理键盘
+- (void)sv_keyBoardShow {
+    CGPoint point = self.webView.scrollView.contentOffset;
+    self.keyBoardPoint = point;
+}
+- (void)sv_keyBoardHidden {
+    self.webView.scrollView.contentOffset = self.keyBoardPoint;
+}
+- (void)sv_initSelf {
     [self initWKWebView];
     self.isBlank = NO;
     self.scalesPageToFit = YES;
     // 监听键盘
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
-    [self.realWebView setFrame:self.bounds];
-    [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    [self.realWebView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
-    [self addSubview:self.realWebView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sv_keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sv_keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
+    self.webView.frame = self.bounds;
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [self addSubview:self.webView];
+    [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     [WKWebViewJavascriptBridge enableLogging];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.realWebView];
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.bridge setWebViewDelegate:self];
     
 }
-- (void)keyBoardShow {
-    CGPoint point = self.realWebView.scrollView.contentOffset;
-    self.keyBoardPoint = point;
-}
-- (void)keyBoardHidden {
-    self.realWebView.scrollView.contentOffset = self.keyBoardPoint;
-}
+#pragma mark - 以下为WKWebView相关方法
 - (void)setDelegate:(id<SVWebViewDelegate>)delegate {
     _delegate = delegate;
     _delegateFlags.didStartLoad = [_delegate respondsToSelector:@selector(webViewDidStartLoad:)];
@@ -84,17 +88,16 @@
     configuration.preferences = preferences;
     configuration.userContentController = [WKUserContentController new];
     
-    WKWebView* webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
-    webView.UIDelegate = self;
-    webView.navigationDelegate = self;
+    _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
+    _webView.UIDelegate = self;
+    _webView.navigationDelegate = self;
     
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque = NO;
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.opaque = NO;
     
-    [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    [webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
+    [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    [_webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     
-    _realWebView = webView;
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"estimatedProgress"]) {
@@ -115,8 +118,8 @@
         meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'; \
         var head = document.getElementsByTagName('head')[0];\
         head.appendChild(meta);";
-        WKWebView *webView = _realWebView;
-        [webView evaluateJavaScript:jScript completionHandler:nil];
+        
+        [_webView evaluateJavaScript:jScript completionHandler:nil];
     }
 }
 
@@ -136,17 +139,12 @@
             retValue = YES;
         }
     }
-    // 下载企业包
-    if ([url.absoluteString containsString:@"ms-services://"]) { //解决2.5.2
+    // v2.1.0
+    NSString *subString1 = @"apps.";
+    NSString *subString2 = @"itunes.";
+    NSString *subString3 = @"tms-ser";
+    if ([url.absoluteString containsString:[subString1 stringByAppendingString:@"apple.com"]] || [url.absoluteString containsString:[subString2 stringByAppendingString:@"apple.com"]] || [url.absoluteString containsString:[subString3 stringByAppendingString:@"vices://"]]) {
         UIApplication *app = [UIApplication sharedApplication];
-        if ([app canOpenURL:url]) {
-            [app openURL:url];
-            retValue = YES;
-        }
-    }
-    // 跳转到 AppStore
-    if ([url.absoluteString containsString:@"apps.apple.com"] || [url.absoluteString containsString:@"itunes.apple.com"]) {
-        UIApplication* app = [UIApplication sharedApplication];
         if ([app canOpenURL:url]) {
             [app openURL:url];
             retValue = YES;
@@ -264,55 +262,55 @@
 
 #pragma mark - 基础方法
 - (UIScrollView *)scrollView {
-    return [(id)self.realWebView scrollView];
+    return [(id)self.webView scrollView];
 }
 
 - (id)loadRequest:(NSURLRequest *)request {
     self.originRequest = request;
     self.currentRequest = request;
-    return [(WKWebView*)self.realWebView loadRequest:request];
+    return [(WKWebView*)self.webView loadRequest:request];
 }
 - (id)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL {
-    return [(WKWebView*)self.realWebView loadHTMLString:string baseURL:baseURL];
+    return [(WKWebView*)self.webView loadHTMLString:string baseURL:baseURL];
 }
 - (NSURLRequest *)currentRequest {
     return _currentRequest;
 }
 - (NSURL *)URL {
-    return [(WKWebView*)self.realWebView URL];
+    return [(WKWebView*)self.webView URL];
 }
 - (BOOL)isLoading {
-    return [self.realWebView isLoading];
+    return [self.webView isLoading];
 }
 - (BOOL)canGoBack {
-    return [self.realWebView canGoBack];
+    return [self.webView canGoBack];
 }
 - (BOOL)canGoForward {
-    return [self.realWebView canGoForward];
+    return [self.webView canGoForward];
 }
 - (WKNavigation *)goBack {
-    return [(WKWebView*)self.realWebView goBack];
+    return [(WKWebView*)self.webView goBack];
 }
 - (WKNavigation *)goForward {
-    return [(WKWebView*)self.realWebView goForward];
+    return [(WKWebView*)self.webView goForward];
 }
 - (WKNavigation *)reload {
-    return [(WKWebView*)self.realWebView reload];
+    return [(WKWebView*)self.webView reload];
 }
 - (WKNavigation *)reloadFromOrigin {
-    return [(WKWebView*)self.realWebView reloadFromOrigin];
+    return [(WKWebView*)self.webView reloadFromOrigin];
 }
 - (void)stopLoading {
-    [self.realWebView stopLoading];
+    [self.webView stopLoading];
 }
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^)(id, NSError *))completionHandler {
-    return [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
+    return [(WKWebView*)self.webView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
 }
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javaScriptString {
     __block NSString* result = nil;
     __block BOOL isExecuted = NO;
-    [(WKWebView*)self.realWebView evaluateJavaScript:javaScriptString completionHandler:^(id obj, NSError *error) {
+    [(WKWebView*)self.webView evaluateJavaScript:javaScriptString completionHandler:^(id obj, NSError *error) {
         result = obj;
         isExecuted = YES;
     }];
@@ -326,8 +324,8 @@
  *  添加js回调oc通知方式，适用于 iOS8 之后
  */
 - (void)addScriptMessageHandler:(id <WKScriptMessageHandler>)scriptMessageHandler name:(NSString *)name {
-    if ([_realWebView isKindOfClass:NSClassFromString(@"WKWebView")]) {
-        [[(WKWebView *)_realWebView configuration].userContentController addScriptMessageHandler:scriptMessageHandler name:name];
+    if ([_webView isKindOfClass:NSClassFromString(@"WKWebView")]) {
+        [[(WKWebView *)_webView configuration].userContentController addScriptMessageHandler:scriptMessageHandler name:name];
     }
 }
 
@@ -335,13 +333,13 @@
  *  注销 注册过的js回调oc通知方式，适用于 iOS8 之后
  */
 - (void)removeScriptMessageHandlerForName:(NSString *)name {
-    if ([_realWebView isKindOfClass:NSClassFromString(@"WKWebView")]) {
-        [[(WKWebView *)_realWebView configuration].userContentController removeScriptMessageHandlerForName:name];
+    if ([_webView isKindOfClass:NSClassFromString(@"WKWebView")]) {
+        [[(WKWebView *)_webView configuration].userContentController removeScriptMessageHandlerForName:name];
     }
 }
 
 - (NSInteger)countOfHistory {
-    return _realWebView.backForwardList.backList.count;
+    return _webView.backForwardList.backList.count;
 }
 - (void)gobackWithStep:(NSInteger)step {
     if(self.canGoBack == NO)
@@ -351,29 +349,29 @@
         if(step >= historyCount) {
             step = historyCount - 1;
         }
-        WKWebView* webView = self.realWebView;
+        WKWebView* webView = self.webView;
         WKBackForwardListItem* backItem = webView.backForwardList.backList[step];
         [webView goToBackForwardListItem:backItem];
     } else {
         [self goBack];
     }
 }
-#pragma mark -  如果没有找到方法 去realWebView 中调用
+#pragma mark -  如果没有找到方法 去webView 中调用
 - (BOOL)respondsToSelector:(SEL)aSelector {
     BOOL hasResponds = [super respondsToSelector:aSelector];
     if(hasResponds == NO) {
         hasResponds = [self.delegate respondsToSelector:aSelector];
     }
     if(hasResponds == NO) {
-        hasResponds = [self.realWebView respondsToSelector:aSelector];
+        hasResponds = [self.webView respondsToSelector:aSelector];
     }
     return hasResponds;
 }
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector {
     NSMethodSignature* methodSign = [super methodSignatureForSelector:selector];
     if(methodSign == nil) {
-        if([self.realWebView respondsToSelector:selector]) {
-            methodSign = [self.realWebView methodSignatureForSelector:selector];
+        if([self.webView respondsToSelector:selector]) {
+            methodSign = [self.webView methodSignatureForSelector:selector];
         } else {
             methodSign = [(id)self.delegate methodSignatureForSelector:selector];
         }
@@ -381,25 +379,23 @@
     return methodSign;
 }
 - (void)forwardInvocation:(NSInvocation*)invocation {
-    if([self.realWebView respondsToSelector:invocation.selector]) {
-        [invocation invokeWithTarget:self.realWebView];
+    if([self.webView respondsToSelector:invocation.selector]) {
+        [invocation invokeWithTarget:self.webView];
     } else {
         [invocation invokeWithTarget:self.delegate];
     }
 }
 #pragma mark - dealloc
 - (void)dealloc {
-    WKWebView* webView = _realWebView;
-    webView.UIDelegate = nil;
-    webView.navigationDelegate = nil;
-    [webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [webView removeObserver:self forKeyPath:@"title"];
-    [_realWebView scrollView].delegate = nil;
-    [_realWebView removeObserver:self forKeyPath:@"loading"];
-    [(UIWebView*)_realWebView loadHTMLString:@"" baseURL:nil];
-    [_realWebView stopLoading];
-    [_realWebView removeFromSuperview];
-    _realWebView = nil;
+    _webView.UIDelegate = nil;
+    _webView.navigationDelegate = nil;
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [_webView removeObserver:self forKeyPath:@"title"];
+    [_webView scrollView].delegate = nil;
+    [_webView removeObserver:self forKeyPath:@"loading"];
+    [_webView stopLoading];
+    [_webView removeFromSuperview];
+    _webView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self  name:UIKeyboardWillHideNotification object:nil];
 }
