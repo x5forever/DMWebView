@@ -86,8 +86,9 @@
     preferences.javaScriptCanOpenWindowsAutomatically = YES;
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.preferences = preferences;
+    configuration.allowsInlineMediaPlayback = YES;//v2.2.0
     configuration.userContentController = [WKUserContentController new];
-    
+
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
@@ -139,7 +140,7 @@
             retValue = YES;
         }
     }
-    // v2.1.0
+    //v2.1.0
     NSString *subString1 = @"apps.";
     NSString *subString2 = @"itunes.";
     NSString *subString3 = @"tms-ser";
