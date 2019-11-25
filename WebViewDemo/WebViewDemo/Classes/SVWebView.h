@@ -5,7 +5,7 @@
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V2.2.0
+//  V2.3.0
 
 
 #import <WebKit/WKScriptMessageHandler.h>
@@ -13,14 +13,16 @@
 #import "WebViewJavascriptBridge.h"
 
 @class SVWebView;
-@protocol SVWebViewDelegate <NSObject>
-@optional
 
+@protocol SVWebViewDelegate <NSObject>
+
+@optional
 - (void)webViewDidStartLoad:(SVWebView *)webView;
 - (void)webViewDidFinishLoad:(SVWebView *)webView;
 - (void)webView:(SVWebView *)webView didFailLoadWithError:(NSError *)error;
 - (BOOL)webView:(SVWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 - (void)webView:(SVWebView *)webView jsBridge:(id)bridge;
+
 @end
 
 @interface SVWebView : UIView

@@ -179,12 +179,8 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     BOOL resultBOOL = [self callback_webViewShouldStartLoadWithRequest:navigationAction.request navigationType:navigationAction.navigationType];
     BOOL isLoadingDisableScheme = [self isLoadingWKWebViewDisableScheme:navigationAction.request.URL];
-    
     if(resultBOOL && !isLoadingDisableScheme){
         self.currentRequest = navigationAction.request;
-        if(navigationAction.targetFrame == nil) {
-            [webView loadRequest:navigationAction.request];
-        }
         decisionHandler(WKNavigationActionPolicyAllow);
     }else {
         decisionHandler(WKNavigationActionPolicyCancel);
@@ -237,7 +233,8 @@
 // 支持window.open()
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
-    if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
+    // v2.3.0
+    if ((navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) && navigationAction.navigationType == WKNavigationTypeOther) {
         if ([navigationAction.request.URL.absoluteString hasSuffix:@"_blank"]) {
             _isBlank = YES;
         }else {
@@ -253,9 +250,6 @@
 - (BOOL)callback_webViewShouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(NSInteger)navigationType {
     BOOL resultBOOL = YES;
     if(_delegateFlags.shouldStartLoad) {
-        if(navigationType == -1) {
-            navigationType = UIWebViewNavigationTypeOther;
-        }
         resultBOOL = [self.delegate webView:self shouldStartLoadWithRequest:request navigationType:navigationType];
     }
     return resultBOOL;
