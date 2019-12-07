@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SVWebView"
-  s.version      = "2.3.0"
+  s.version      = "2.3.1"
   s.summary      = "SVWebView is package of WKWebView, and integrating with WebViewJavascriptBridge"
   s.description  = <<-DESC
     2.0.0版本之后将不再兼容UIWebView，系统兼容iOS8.0+版本。
@@ -58,6 +58,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "WebViewJavascriptBridge", "~>6.0.3"
-  s.dependency "NJKWebViewProgress"
 
 end

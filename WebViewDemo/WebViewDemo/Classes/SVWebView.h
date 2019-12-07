@@ -5,7 +5,7 @@
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V2.3.0
+//  V2.3.1
 
 
 #import <WebKit/WKScriptMessageHandler.h>
@@ -20,7 +20,7 @@
 - (void)webViewDidStartLoad:(SVWebView *)webView;
 - (void)webViewDidFinishLoad:(SVWebView *)webView;
 - (void)webView:(SVWebView *)webView didFailLoadWithError:(NSError *)error;
-- (BOOL)webView:(SVWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+- (BOOL)webView:(SVWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType;
 - (void)webView:(SVWebView *)webView jsBridge:(id)bridge;
 
 @end

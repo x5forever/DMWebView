@@ -8,7 +8,6 @@
 //
 
 #import "SVWebView.h"
-#import "NJKWebViewProgress.h"
 
 //#if iOS8 以上 （本想在编译期判断iOS系统，宏定义一个bridge，如下。可是一直没有找到能在编译期判断iOS系统的宏处理，目前能解决的方式：id bridge. 从此我便深深地爱上了id指针 —— by x5）
 //#define SVWebViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
@@ -16,7 +15,7 @@
 //#define SVWebViewJSBRIDGE_TYPE WebViewJavascriptBridge
 //#endif
 
-@interface SVWebView ()<WKNavigationDelegate,WKUIDelegate,NJKWebViewProgressDelegate> {
+@interface SVWebView ()<WKNavigationDelegate,WKUIDelegate> {
     struct {
         unsigned int didStartLoad           : 1;
         unsigned int didFinishLoad          : 1;
@@ -29,7 +28,6 @@
 @property (nonatomic, assign) double estimatedProgress;
 @property (nonatomic, strong) NSURLRequest *originRequest;
 @property (nonatomic, strong) NSURLRequest *currentRequest;
-@property (nonatomic, strong) NJKWebViewProgress *njkWebViewProgress;
 @property (nonatomic, strong) id bridge;
 @property (nonatomic, assign) BOOL isBlank; //v2.0.1判断_blank
 @property (nonatomic, assign) CGPoint keyBoardPoint; //v2.0.2键盘问题
@@ -122,10 +120,6 @@
         
         [_webView evaluateJavaScript:jScript completionHandler:nil];
     }
-}
-
-- (void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {
-    self.estimatedProgress = progress;
 }
 #pragma mark - 基础方法
 // 判断当前加载的url是否是WKWebView不能打开的协议类型
@@ -247,7 +241,7 @@
 - (void)callback_webViewDidFinishLoad { if(_delegateFlags.didFinishLoad) [self.delegate webViewDidFinishLoad:self];}
 - (void)callback_webViewDidStartLoad { if(_delegateFlags.didStartLoad) [self.delegate webViewDidStartLoad:self];}
 - (void)callback_webViewDidFailLoadWithError:(NSError *)error { if(_delegateFlags.didFailLoad) [self.delegate webView:self didFailLoadWithError:error];}
-- (BOOL)callback_webViewShouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(NSInteger)navigationType {
+- (BOOL)callback_webViewShouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType {
     BOOL resultBOOL = YES;
     if(_delegateFlags.shouldStartLoad) {
         resultBOOL = [self.delegate webView:self shouldStartLoadWithRequest:request navigationType:navigationType];
