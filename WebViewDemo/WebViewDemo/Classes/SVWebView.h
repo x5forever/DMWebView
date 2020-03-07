@@ -5,7 +5,7 @@
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V2.3.1
+//  V2.3.2
 
 
 #import <WebKit/WKScriptMessageHandler.h>

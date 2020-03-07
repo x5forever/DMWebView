@@ -29,7 +29,6 @@
 @property (nonatomic, strong) NSURLRequest *originRequest;
 @property (nonatomic, strong) NSURLRequest *currentRequest;
 @property (nonatomic, strong) id bridge;
-@property (nonatomic, assign) BOOL isBlank; //v2.0.1判断_blank
 @property (nonatomic, assign) CGPoint keyBoardPoint; //v2.0.2键盘问题
 @end
 
@@ -38,28 +37,27 @@
 @synthesize webView = _webView;
 @synthesize scalesPageToFit = _scalesPageToFit;
 
-- (instancetype)initWithCoder:(NSCoder *)coder { if (self = [super initWithCoder:coder]) [self sv_initSelf]; return self;}
+- (instancetype)initWithCoder:(NSCoder *)coder { if (self = [super initWithCoder:coder]) [self initSelf]; return self;}
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self sv_initSelf];
+        [self initSelf];
     }
     return self;
 }
 #pragma mark - 监听处理键盘
-- (void)sv_keyBoardShow {
+- (void)keyBoardShow {
     CGPoint point = self.webView.scrollView.contentOffset;
     self.keyBoardPoint = point;
 }
-- (void)sv_keyBoardHidden {
+- (void)keyBoardHidden {
     self.webView.scrollView.contentOffset = self.keyBoardPoint;
 }
-- (void)sv_initSelf {
+- (void)initSelf {
     [self initWKWebView];
-    self.isBlank = NO;
     self.scalesPageToFit = YES;
     // 监听键盘
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sv_keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sv_keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     self.webView.frame = self.bounds;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.webView];
@@ -158,15 +156,6 @@
         }
         
     }
-    // _blank
-    if (_isBlank){
-        _isBlank = NO;
-        UIApplication* app = [UIApplication sharedApplication];
-        if ([app canOpenURL:url]) {
-            [app openURL:url];
-            retValue = YES;
-        }
-    }
     return retValue;
 }
 #pragma mark - WKNavigationDelegate
@@ -227,12 +216,13 @@
 // 支持window.open()
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
-    // v2.3.0
-    if ((navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) && navigationAction.navigationType == WKNavigationTypeOther) {
-        if ([navigationAction.request.URL.absoluteString hasSuffix:@"_blank"]) {
-            _isBlank = YES;
-        }else {
-            [webView loadRequest:navigationAction.request];
+    // v2.3.2
+    if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
+        if (navigationAction.request.URL) {
+            NSString *scheme = navigationAction.request.URL.scheme;
+            if ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"mailto"]) {
+                [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            }
         }
     }
     return nil;
