@@ -222,6 +222,8 @@
             NSString *scheme = navigationAction.request.URL.scheme;
             if ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"mailto"]) {
                 [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            }else {
+                [webView loadRequest:navigationAction.request];
             }
         }
     }
