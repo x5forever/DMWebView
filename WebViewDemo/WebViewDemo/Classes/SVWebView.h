@@ -7,7 +7,6 @@
 //  
 //  V2.4.0 SVWebKit
 
-
 #import <WebKit/WebKit.h>
 #import "WebViewJavascriptBridge.h"
 

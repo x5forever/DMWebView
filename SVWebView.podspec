@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SVWebView"
-  s.version      = "2.3.3"
-  s.summary      = "SVWebView is package of WKWebView, and integrating with WebViewJavascriptBridge"
+  s.version      = "2.4.0"
+  s.summary      = "SVWebView is package of WKWebView, and integrating with WebViewJavascriptBridge_WebKit"
   s.description  = <<-DESC
     2.0.0版本之后将不再兼容UIWebView，系统兼容iOS8.0+版本。
     SVWebView是WKWebView的封装，同时还集成了WebViewJavascriptBridge，在SVWebViewDelegate协议中能实现js与oc的交互。
