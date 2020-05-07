@@ -62,8 +62,8 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.webView];
     [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
-    [WKWebViewJavascriptBridge enableLogging];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
+    [WebViewJavascriptBridge enableLogging];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.bridge setWebViewDelegate:self];
     
 }
@@ -216,16 +216,8 @@
 // 支持window.open()
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
-    // v2.3.2
     if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
-        if (navigationAction.request.URL) {
-            NSString *scheme = navigationAction.request.URL.scheme;
-            if ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"mailto"]) {
-                [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
-            }else {
-                [webView loadRequest:navigationAction.request];
-            }
-        }
+        [webView loadRequest:navigationAction.request];
     }
     return nil;
 }

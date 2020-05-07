@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## WebViewJavascriptBridge
+## WebViewJavascriptBridge_WebKit
 
 Copyright (c) 2011-2015 Marcus Westin, Antoine Lagadec
 

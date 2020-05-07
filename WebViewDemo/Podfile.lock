@@ -1,16 +1,16 @@
 PODS:
-  - WebViewJavascriptBridge (6.0.3)
+  - WebViewJavascriptBridge_WebKit (7.0.1)
 
 DEPENDENCIES:
-  - WebViewJavascriptBridge (~> 6.0.3)
+  - WebViewJavascriptBridge_WebKit (~> 7.0.1)
 
 SPEC REPOS:
   trunk:
-    - WebViewJavascriptBridge
+    - WebViewJavascriptBridge_WebKit
 
 SPEC CHECKSUMS:
-  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
+  WebViewJavascriptBridge_WebKit: 3fba9150bbdea8258f69db2e5f7c74e191ee94c2
 
-PODFILE CHECKSUM: a95349830079af69e63901df5ed3c1ec89b62dc6
+PODFILE CHECKSUM: 724c064283a220425ce438d3ca14bf0097d99798
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

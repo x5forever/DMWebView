@@ -1,16 +1,16 @@
 //
-//  WKWebViewJavascriptBridge.m
+//  WebViewJavascriptBridge.m
 //
 //  Created by @LokiMeyburg on 10/15/14.
 //  Copyright (c) 2014 @LokiMeyburg. All rights reserved.
 //
 
 
-#import "WKWebViewJavascriptBridge.h"
+#import "WebViewJavascriptBridge.h"
 
 #if defined supportsWKWebView
 
-@implementation WKWebViewJavascriptBridge {
+@implementation WebViewJavascriptBridge {
     __weak WKWebView* _webView;
     __weak id<WKNavigationDelegate> _webViewDelegate;
     long _uniqueId;
@@ -23,7 +23,7 @@
 + (void)enableLogging { [WebViewJavascriptBridgeBase enableLogging]; }
 
 + (instancetype)bridgeForWebView:(WKWebView*)webView {
-    WKWebViewJavascriptBridge* bridge = [[self alloc] init];
+    WebViewJavascriptBridge* bridge = [[self alloc] init];
     [bridge _setupInstance:webView];
     [bridge reset];
     return bridge;
@@ -96,7 +96,7 @@
         if (error != nil) {
             NSLog(@"WebViewJavascriptBridge: WARNING: Error when trying to fetch data from WKWebView: %@", error);
         }
-        [_base flushMessageQueue:result];
+        [self->_base flushMessageQueue:result];
     }];
 }
 

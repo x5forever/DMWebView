@@ -5,11 +5,10 @@
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V2.3.2
+//  V2.4.0 SVWebKit
 
 
-#import <WebKit/WKScriptMessageHandler.h>
-#import "WKWebViewJavascriptBridge.h"
+#import <WebKit/WebKit.h>
 #import "WebViewJavascriptBridge.h"
 
 @class SVWebView;
