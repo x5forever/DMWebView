@@ -1,33 +1,33 @@
 //
-//  SVWebView.h
-//  SVWebViewDemo
+//  SVWabView.h
+//  SVWabViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V2.4.0 SVWebKit
+//  V3.0.0 SVWebKit update 6/15/2020.
 
 #import <WebKit/WebKit.h>
 #import "WebViewJavascriptBridge.h"
 
-@class SVWebView;
+@class SVWabView;
 
-@protocol SVWebViewDelegate <NSObject>
+@protocol SVWabViewDelegate <NSObject>
 
 @optional
-- (void)webViewDidStartLoad:(SVWebView *)webView;
-- (void)webViewDidFinishLoad:(SVWebView *)webView;
-- (void)webView:(SVWebView *)webView didFailLoadWithError:(NSError *)error;
-- (BOOL)webView:(SVWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType;
-- (void)webView:(SVWebView *)webView jsBridge:(id)bridge;
+- (void)webViewDidStartLoad:(SVWabView *)webView;
+- (void)webViewDidFinishLoad:(SVWabView *)webView;
+- (void)webView:(SVWabView *)webView didFailLoadWithError:(NSError *)error;
+- (BOOL)webView:(SVWabView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType;
+- (void)webView:(SVWabView *)webView jsBridge:(id)bridge;
 
 @end
 
-@interface SVWebView : UIView
+@interface SVWabView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-@property(weak,nonatomic)id<SVWebViewDelegate> delegate;
+@property(weak,nonatomic)id<SVWabViewDelegate> delegate;
 
 // 内部使用的webView
 @property (nonatomic, readonly) WKWebView *webView;
@@ -61,6 +61,7 @@
 @property (nonatomic, readonly) NSURL *URL;
 
 @property (nonatomic, readonly, getter=isLoading) BOOL loading;
+@property (nonatomic, assign)   BOOL canOpen;
 @property (nonatomic, readonly) BOOL canGoBack;
 @property (nonatomic, readonly) BOOL canGoForward;
 

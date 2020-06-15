@@ -7,12 +7,12 @@
 //
 
 #import "ViewController2.h"
-#import "SVWebView.h"
+#import "SVWabView.h"
 
 // method key of JSBridge
 static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
 
-@interface ViewController2 ()<SVWebViewDelegate>
+@interface ViewController2 ()<SVWabViewDelegate>
 @property (strong, nonatomic)id bridge;
 @end
 
@@ -21,7 +21,7 @@ static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    SVWebView *webView = [[SVWebView alloc] initWithFrame:self.view.bounds];
+    SVWabView *webView = [[SVWabView alloc] initWithFrame:self.view.bounds];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"js_iOS" ofType:@"html"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL fileURLWithPath:[self pathForWKWebViewSandboxBugWithOriginalPath:filePath]]];
     [webView loadRequest:request];
@@ -73,8 +73,8 @@ static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
 - (void)callJS {
     if (self.bridge) [_bridge callHandler:@"iOSCallJS" data:@{@"content":@"这是oc调js"}];
 }
-#pragma mark - SVWebViewDelegate
-- (void)webView:(SVWebView *)webView jsBridge:(id)bridge {
+#pragma mark - SVWabViewDelegate
+- (void)webView:(SVWabView *)webView jsBridge:(id)bridge {
     
     // get bridge for oc call js (method of callJS need current bridge)
     self.bridge = bridge;

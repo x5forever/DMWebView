@@ -1,21 +1,21 @@
 
 //
-//  SVWebView.m
-//  SVWebViewDemo
+//  SVWabView.m
+//  SVWabViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //
 
-#import "SVWebView.h"
+#import "SVWabView.h"
 
 //#if iOS8 以上 （本想在编译期判断iOS系统，宏定义一个bridge，如下。可是一直没有找到能在编译期判断iOS系统的宏处理，目前能解决的方式：id bridge. 从此我便深深地爱上了id指针 —— by x5）
-//#define SVWebViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
+//#define SVWabViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
 //#else
-//#define SVWebViewJSBRIDGE_TYPE WebViewJavascriptBridge
+//#define SVWabViewJSBRIDGE_TYPE WebViewJavascriptBridge
 //#endif
 
-@interface SVWebView ()<WKNavigationDelegate,WKUIDelegate> {
+@interface SVWabView ()<WKNavigationDelegate,WKUIDelegate> {
     struct {
         unsigned int didStartLoad           : 1;
         unsigned int didFinishLoad          : 1;
@@ -32,7 +32,7 @@
 @property (nonatomic, assign) CGPoint keyBoardPoint; //v2.0.2键盘问题
 @end
 
-@implementation SVWebView
+@implementation SVWabView
 
 @synthesize webView = _webView;
 @synthesize scalesPageToFit = _scalesPageToFit;
@@ -55,6 +55,7 @@
 - (void)initSelf {
     [self initWKWebView];
     self.scalesPageToFit = YES;
+    self.canOpen = NO;
     // 监听键盘
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
@@ -68,7 +69,7 @@
     
 }
 #pragma mark - 以下为WKWebView相关方法
-- (void)setDelegate:(id<SVWebViewDelegate>)delegate {
+- (void)setDelegate:(id<SVWabViewDelegate>)delegate {
     _delegate = delegate;
     _delegateFlags.didStartLoad = [_delegate respondsToSelector:@selector(webViewDidStartLoad:)];
     _delegateFlags.didFinishLoad = [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)];
@@ -217,11 +218,12 @@
 -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
     if (navigationAction.targetFrame == nil || !navigationAction.targetFrame.isMainFrame) {
-        [webView loadRequest:navigationAction.request];
+        if (_canOpen && [[UIApplication sharedApplication] openURL:navigationAction.request.URL]);
+        else [webView loadRequest:navigationAction.request];
     }
     return nil;
 }
-#pragma mark- callback SVWebView Delegate
+#pragma mark- callback SVWabView Delegate
 - (void)callback_webViewDidFinishLoad { if(_delegateFlags.didFinishLoad) [self.delegate webViewDidFinishLoad:self];}
 - (void)callback_webViewDidStartLoad { if(_delegateFlags.didStartLoad) [self.delegate webViewDidStartLoad:self];}
 - (void)callback_webViewDidFailLoadWithError:(NSError *)error { if(_delegateFlags.didFailLoad) [self.delegate webView:self didFailLoadWithError:error];}
