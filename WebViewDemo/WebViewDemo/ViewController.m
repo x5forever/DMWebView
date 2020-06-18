@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SVWabView.h"
+#import "MKWebView.h"
 
 @interface ViewController ()
 
@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SVWabView *webView = [[SVWabView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    MKWebView *webView = [[MKWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
     [webView loadRequest:request];
     [self.view addSubview:webView];

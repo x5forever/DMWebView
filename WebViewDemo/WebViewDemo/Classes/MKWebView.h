@@ -1,33 +1,32 @@
 //
-//  SVWabView.h
-//  SVWabViewDemo
+//  MKWebView.h
+//  MKWebViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //  
-//  V3.0.0 SVWebKit update 6/15/2020.
+//  V3.0.1 MKWebView update 6/18/2020.
 
 #import <WebKit/WebKit.h>
-#import "WebViewJavascriptBridge.h"
 
-@class SVWabView;
+@class MKWebView;
 
-@protocol SVWabViewDelegate <NSObject>
+@protocol MKWebViewDelegate <NSObject>
 
 @optional
-- (void)webViewDidStartLoad:(SVWabView *)webView;
-- (void)webViewDidFinishLoad:(SVWabView *)webView;
-- (void)webView:(SVWabView *)webView didFailLoadWithError:(NSError *)error;
-- (BOOL)webView:(SVWabView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType;
-- (void)webView:(SVWabView *)webView jsBridge:(id)bridge;
+- (void)webViewDidStartLoad:(MKWebView *)webView;
+- (void)webViewDidFinishLoad:(MKWebView *)webView;
+- (void)webView:(MKWebView *)webView didFailLoadWithError:(NSError *)error;
+- (BOOL)webView:(MKWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(WKNavigationType)navigationType;
+//- (void)webView:(MKWebView *)webView jsBridge:(id)bridge;
 
 @end
 
-@interface SVWabView : UIView
+@interface MKWebView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-@property(weak,nonatomic)id<SVWabViewDelegate> delegate;
+@property(weak,nonatomic)id<MKWebViewDelegate> delegate;
 
 // 内部使用的webView
 @property (nonatomic, readonly) WKWebView *webView;

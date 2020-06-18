@@ -7,12 +7,12 @@
 //
 
 #import "ViewController2.h"
-#import "SVWabView.h"
+#import "MKWebView.h"
 
 // method key of JSBridge
 static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
 
-@interface ViewController2 ()<SVWabViewDelegate>
+@interface ViewController2 ()<MKWebViewDelegate>
 @property (strong, nonatomic)id bridge;
 @end
 
@@ -21,7 +21,7 @@ static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    SVWabView *webView = [[SVWabView alloc] initWithFrame:self.view.bounds];
+    MKWebView *webView = [[MKWebView alloc] initWithFrame:self.view.bounds];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"js_iOS" ofType:@"html"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL fileURLWithPath:[self pathForWKWebViewSandboxBugWithOriginalPath:filePath]]];
     [webView loadRequest:request];
@@ -71,19 +71,19 @@ static NSString *const kJSBridgeJsCallIOS = @"jsCallIOS";
     return newPath;
 }
 - (void)callJS {
-    if (self.bridge) [_bridge callHandler:@"iOSCallJS" data:@{@"content":@"这是oc调js"}];
+//    if (self.bridge) [_bridge callHandler:@"iOSCallJS" data:@{@"content":@"这是oc调js"}];
 }
-#pragma mark - SVWabViewDelegate
-- (void)webView:(SVWabView *)webView jsBridge:(id)bridge {
+#pragma mark - MKWebViewDelegate
+- (void)webView:(MKWebView *)webView jsBridge:(id)bridge {
     
     // get bridge for oc call js (method of callJS need current bridge)
     self.bridge = bridge;
     
     // register handler for js call oc
-    [bridge registerHandler:kJSBridgeJsCallIOS handler:^(id data, WVJBResponseCallback responseCallback) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:data[@"content"] message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
-    }];
+//    [bridge registerHandler:kJSBridgeJsCallIOS handler:^(id data, WVJBResponseCallback responseCallback) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:data[@"content"] message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        [alert show];
+//    }];
 }
 
 @end

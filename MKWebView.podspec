@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint SVWabView.podspec' to ensure this is a
+#  Be sure to run `pod spec lint MKWebView.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -9,14 +9,14 @@
 Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.name         = "SVWabView"
-  s.version      = "3.0.0"
-  s.summary      = "SVWabView is package of WKWebView, and integrating with WebViewJavascriptBridge_WebKit"
+  s.name         = "MKWebView"
+  s.version      = "3.0.1"
+  s.summary      = "MKWebView is package of WKWebView, and integrating with WebViewJavascriptBridge_WebKit"
   s.description  = <<-DESC
     2.0.0版本之后将不再兼容UIWebView，系统兼容iOS8.0+。
     2.4.0版本删除对UIWebView框架的引用，系统兼容iOS9.0+。
-    3.0.0版本更名为：SVWabView，并新增canOpen属性。
-    SVWabView是WKWebView的封装，同时还集成了WebViewJavascriptBridge，在SVWabViewDelegate协议中能实现js与oc的交互。
+    3.0.0版本更名为：MKWebView，并新增canOpen属性。
+    MKWebView是WKWebView的封装，同时还集成了WebViewJavascriptBridge，在MKWebViewDelegate协议中能实现js与oc的交互。
     DESC
   s.homepage     = "https://github.com/x5forever/DMWebView.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -59,6 +59,6 @@ Pod::Spec.new do |s|
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.requires_arc = true
 
-  s.dependency 'WebViewJavascriptBridge_WebKit', '~> 7.0.1'
+  # s.dependency 'WebViewJavascriptBridge_WebKit', '~> 7.0.1'
 
 end

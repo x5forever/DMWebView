@@ -3,7 +3,6 @@ platform :ios, '9.0'
 
 target 'WebViewDemo' do
 
-pod 'WebViewJavascriptBridge_WebKit', '~> 7.0.1'
 
 end
 

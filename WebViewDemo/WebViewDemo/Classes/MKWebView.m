@@ -1,27 +1,27 @@
 
 //
-//  SVWabView.m
-//  SVWabViewDemo
+//  MKWebView.m
+//  MKWebViewDemo
 //
 //  Created by x5 on 16/8/30.
 //  Copyright © 2016年 Xcution. All rights reserved.
 //
 
-#import "SVWabView.h"
+#import "MKWebView.h"
 
 //#if iOS8 以上 （本想在编译期判断iOS系统，宏定义一个bridge，如下。可是一直没有找到能在编译期判断iOS系统的宏处理，目前能解决的方式：id bridge. 从此我便深深地爱上了id指针 —— by x5）
-//#define SVWabViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
+//#define MKWebViewJSBRIDGE_TYPE WKWebViewJavascriptBridge
 //#else
-//#define SVWabViewJSBRIDGE_TYPE WebViewJavascriptBridge
+//#define MKWebViewJSBRIDGE_TYPE WebViewJavascriptBridge
 //#endif
 
-@interface SVWabView ()<WKNavigationDelegate,WKUIDelegate> {
+@interface MKWebView ()<WKNavigationDelegate,WKUIDelegate> {
     struct {
         unsigned int didStartLoad           : 1;
         unsigned int didFinishLoad          : 1;
         unsigned int didFailLoad            : 1;
         unsigned int shouldStartLoad        : 1;
-        unsigned int jsBridge               : 1;
+//        unsigned int jsBridge               : 1;
     }_delegateFlags;
 }
 @property (nonatomic, copy) NSString *title;
@@ -32,7 +32,7 @@
 @property (nonatomic, assign) CGPoint keyBoardPoint; //v2.0.2键盘问题
 @end
 
-@implementation SVWabView
+@implementation MKWebView
 
 @synthesize webView = _webView;
 @synthesize scalesPageToFit = _scalesPageToFit;
@@ -63,20 +63,20 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.webView];
     [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
-    [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
-    [self.bridge setWebViewDelegate:self];
+//    [WebViewJavascriptBridge enableLogging];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+//    [self.bridge setWebViewDelegate:self];
     
 }
 #pragma mark - 以下为WKWebView相关方法
-- (void)setDelegate:(id<SVWabViewDelegate>)delegate {
+- (void)setDelegate:(id<MKWebViewDelegate>)delegate {
     _delegate = delegate;
     _delegateFlags.didStartLoad = [_delegate respondsToSelector:@selector(webViewDidStartLoad:)];
     _delegateFlags.didFinishLoad = [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)];
     _delegateFlags.didFailLoad = [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)];
     _delegateFlags.shouldStartLoad = [_delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)];
-    _delegateFlags.jsBridge = [_delegate respondsToSelector:@selector(webView:jsBridge:)];
-    [self registerNativeBridge:self.bridge];
+//    _delegateFlags.jsBridge = [_delegate respondsToSelector:@selector(webView:jsBridge:)];
+//    [self registerNativeBridge:self.bridge];
 }
 - (void)initWKWebView {
     WKPreferences *preferences = [WKPreferences new];
@@ -223,7 +223,7 @@
     }
     return nil;
 }
-#pragma mark- callback SVWabView Delegate
+#pragma mark- callback MKWebView Delegate
 - (void)callback_webViewDidFinishLoad { if(_delegateFlags.didFinishLoad) [self.delegate webViewDidFinishLoad:self];}
 - (void)callback_webViewDidStartLoad { if(_delegateFlags.didStartLoad) [self.delegate webViewDidStartLoad:self];}
 - (void)callback_webViewDidFailLoadWithError:(NSError *)error { if(_delegateFlags.didFailLoad) [self.delegate webView:self didFailLoadWithError:error];}
@@ -375,7 +375,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self  name:UIKeyboardWillHideNotification object:nil];
 }
 #pragma mark - registerNativeBridge
-- (void)registerNativeBridge:(id )webBridge {
-    if (_delegateFlags.jsBridge) [_delegate webView:self jsBridge:webBridge];
-}
+//- (void)registerNativeBridge:(id )webBridge {
+//    if (_delegateFlags.jsBridge) [_delegate webView:self jsBridge:webBridge];
+//}
 @end
